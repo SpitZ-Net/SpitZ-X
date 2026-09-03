@@ -234,97 +234,39 @@ button{cursor:pointer}
 .footer{text-align:center;padding:24px 0 6px;color:#5c5668;font-size:11px}
 
 
-
-.library-tools{
-  display:flex;align-items:center;gap:14px;margin:2px 0 18px;
-}
-.library-search{
-  position:relative;display:flex;align-items:center;flex:1;min-width:0;
-  max-width:680px;
-}
-.library-search svg{
-  position:absolute;left:13px;width:18px;height:18px;color:#746b83;pointer-events:none;
-}
-.library-search input{
-  width:100%;height:40px;padding:0 40px 0 40px;
-  border:1px solid var(--border2);border-radius:10px;
-  background:rgba(12,9,20,.92);color:#eee9f7;outline:none;
-  font-size:12px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.01);
-}
-.library-search input::placeholder{color:#686173}
-.library-search input:focus{
-  border-color:#6f42a9;box-shadow:0 0 0 3px rgba(169,112,255,.09),0 0 20px rgba(108,54,188,.06);
-}
-.search-clear{
-  position:absolute;right:8px;width:26px;height:26px;border:0;border-radius:7px;
-  background:rgba(255,255,255,.05);color:#a69dae;font-size:17px;line-height:1;
-}
-.search-clear:hover{background:rgba(169,112,255,.10);color:#fff}
-.library-results{
-  flex:0 0 auto;padding:8px 12px;border:1px solid var(--border);border-radius:999px;
-  color:var(--muted);font-size:11px;background:rgba(169,112,255,.04)
-}
-.library-results span{color:var(--purple);font-weight:800}
-.library-item[style*="display: none"]{display:none !important}
-@media(max-width:620px){
-  .library-tools{align-items:stretch;flex-direction:column;gap:8px}
-  .library-search{max-width:none}
-}
-
-/* Library */
+/* SPITz-X Library */
 .library-header{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
-.library-count{
-  padding:8px 12px;border:1px solid var(--border);border-radius:999px;
-  background:rgba(169,112,255,.05);color:#aaa2b7;font-size:11px;
-}
+.library-count{padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:rgba(169,112,255,.05);color:var(--muted);font-size:11px}
 .library-count span{color:var(--purple);font-weight:800}
-.library-filter{display:flex;gap:8px;margin:2px 0 18px}
-.filter-btn{
-  height:32px;padding:0 13px;border-radius:999px;border:1px solid var(--border);
-  background:rgba(17,13,28,.9);color:var(--muted);font-size:11px;font-weight:700
-}
-.filter-btn:hover{color:#fff;border-color:#57486d}
-.filter-btn.active{color:#fff;background:rgba(169,112,255,.11);border-color:#7040b4;box-shadow:0 0 15px rgba(169,112,255,.08)}
+.library-tools{display:flex;align-items:center;gap:14px;margin:2px 0 18px}
+.library-search{position:relative;display:flex;align-items:center;flex:1;max-width:680px}
+.library-search svg{position:absolute;left:13px;width:18px;height:18px;color:#746b83;pointer-events:none}
+.library-search input{width:100%;height:40px;padding:0 40px;border:1px solid var(--border2);border-radius:10px;background:rgba(12,9,20,.92);color:#eee9f7;outline:none;font-size:12px}
+.library-search input::placeholder{color:#686173}
+.library-search input:focus{border-color:#6f42a9;box-shadow:0 0 0 3px rgba(169,112,255,.08)}
+.search-clear{position:absolute;right:8px;width:26px;height:26px;border:0;border-radius:7px;background:rgba(255,255,255,.05);color:#a69dae;font-size:17px;line-height:1}
+.search-clear:hover{background:rgba(169,112,255,.1);color:#fff}
+.library-results{padding:8px 12px;border:1px solid var(--border);border-radius:999px;color:var(--muted);font-size:11px}
+.library-results span{color:var(--purple);font-weight:800}
 .library-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
-.game-card{
-  min-width:0;overflow:hidden;border:1px solid var(--border2);border-radius:14px;
-  background:linear-gradient(180deg,rgba(20,16,33,.98),rgba(13,10,23,.99));
-  box-shadow:0 12px 30px rgba(0,0,0,.16);transition:.18s ease
-}
+.game-card{min-width:0;overflow:hidden;border:1px solid var(--border2);border-radius:14px;background:linear-gradient(180deg,rgba(20,16,33,.98),rgba(13,10,23,.99));box-shadow:0 12px 30px rgba(0,0,0,.16);transition:.18s ease}
 .game-card.playable:hover{transform:translateY(-3px);border-color:#654e87;box-shadow:0 17px 38px rgba(0,0,0,.24),0 0 24px rgba(133,68,225,.08)}
-.game-art{
-  aspect-ratio:1/1;position:relative;display:flex;align-items:center;justify-content:center;
-  overflow:hidden;border-bottom:1px solid var(--border)
-}
+.game-art{aspect-ratio:1;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--border)}
 .eagler-art{background:radial-gradient(circle at 50% 30%,rgba(169,112,255,.18),transparent 28%),linear-gradient(145deg,#171025,#0c0915 70%,#180e28)}
 .game-2048{background:radial-gradient(circle at 50% 25%,rgba(169,112,255,.24),transparent 28%),linear-gradient(145deg,#1d1530,#0e0a18 65%,#170c26)}
-.empty-art{background:linear-gradient(145deg,#151020,#0d0916)}
-.game-icon{
-  width:62%;aspect-ratio:1;display:grid;place-items:center;border-radius:16px;
-  position:relative;transition:.18s;filter:drop-shadow(0 16px 28px rgba(80,35,155,.24))
-}
+.game-icon{width:62%;aspect-ratio:1;display:grid;place-items:center;border-radius:16px;position:relative;transition:.18s;filter:drop-shadow(0 16px 28px rgba(80,35,155,.24))}
 .game-icon svg{width:100%;height:100%}
+.game-icon.alt{transform:rotate(3deg)}
 .game-card.playable:hover .game-icon{transform:translateY(-3px) scale(1.025)}
+.game-card.playable:hover .game-icon.alt{transform:translateY(-3px) scale(1.025) rotate(3deg)}
 .puzzle-icon{width:58%}
-.slot-icon{color:#554866;width:48%}
-.version-ribbon{
-  position:absolute;right:12px;bottom:12px;padding:5px 8px;border:1px solid rgba(255,255,255,.12);
-  border-radius:6px;background:rgba(7,5,11,.78);color:#eee8f6;
-  font:800 10px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.05em;backdrop-filter:blur(4px)
-}
-.game-card-body{padding:17px}
-.game-card-top{display:flex;align-items:center;gap:9px}
-.game-card-top h3{margin:0;font-size:15px}
+.version-ribbon{position:absolute;right:12px;bottom:12px;padding:5px 8px;border:1px solid rgba(255,255,255,.12);border-radius:6px;background:rgba(7,5,11,.78);color:#eee8f6;font:800 10px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.05em;backdrop-filter:blur(4px)}
+.game-card-body{padding:17px}.game-card-top{display:flex;align-items:center;gap:9px}.game-card-top h3{margin:0;font-size:15px}
 .game-card-body p{margin:8px 0 16px;min-height:42px;color:var(--muted);font-size:11px;line-height:1.55}
-.game-badge{
-  margin-left:auto;padding:4px 7px;border-radius:999px;border:1px solid #29673d;color:var(--green);
-  background:rgba(72,226,123,.06);font-size:9px;font-weight:800;letter-spacing:.08em
-}
-.game-badge.soon{border-color:#40364f;color:#777080;background:rgba(255,255,255,.02)}
-.card-btn.disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.game-badge{margin-left:auto;padding:4px 7px;border-radius:999px;border:1px solid #29673d;color:var(--green);background:rgba(72,226,123,.06);font-size:9px;font-weight:800;letter-spacing:.08em}
 @media(max-width:1250px){.library-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:950px){.library-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:620px){.library-grid{grid-template-columns:1fr}.library-header{align-items:flex-start;flex-direction:column}}
+@media(max-width:620px){.library-grid{grid-template-columns:1fr}.library-tools{align-items:stretch;flex-direction:column}.library-search{max-width:none}.library-header{align-items:flex-start;flex-direction:column}}
 
 /* responsive */
 @media(max-width:1100px){
@@ -488,7 +430,7 @@ button{cursor:pointer}
       <div class="footer">© 2026 SPITz-X Tech Group. Built for the workspace.</div>
     </section>
 
-            <section id="library" class="view">
+        <section id="library" class="view">
       <div class="library-header">
         <div>
           <h1 class="page-title">Library</h1>
@@ -500,8 +442,7 @@ button{cursor:pointer}
       <div class="library-tools">
         <div class="library-search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
-            <circle cx="11" cy="11" r="6.5"/>
-            <path d="m16 16 5 5"/>
+            <circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/>
           </svg>
           <input id="library-search" type="search" autocomplete="off" placeholder="Search games..." oninput="searchLibrary(this.value)">
           <button id="library-clear" class="search-clear" type="button" onclick="clearLibrarySearch()" aria-label="Clear search" hidden>×</button>
@@ -510,11 +451,10 @@ button{cursor:pointer}
       </div>
 
       <div class="library-grid" id="library-grid">
-
-        <article class="game-card library-item eagler playable" data-search="eaglercraft eaglercraftx minecraft 1.8 1.8 offline browser">
+        <article class="game-card library-item playable" data-search="eaglercraft eaglercraftx minecraft 1.8 1.8.8 offline browser singleplayer multiplayer">
           <div class="game-art eagler-art">
-            <div class="game-icon minecraft-icon" aria-label="Eaglercraft icon">
-              <svg viewBox="0 0 64 64" fill="none">
+            <div class="game-icon minecraft-icon">
+              <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
                 <rect x="7" y="9" width="50" height="46" rx="7" fill="#7A55D8"/>
                 <path d="M16 19h32v10H16z" fill="#B28AFF"/>
                 <path d="M16 35h13v13H16zM35 35h13v13H35z" fill="#4E347F"/>
@@ -524,16 +464,16 @@ button{cursor:pointer}
             <div class="version-ribbon">1.8</div>
           </div>
           <div class="game-card-body">
-            <div class="game-card-top"><h3>EaglercraftX</h3><span class="game-badge">INSTALLED</span></div>
-            <p>Offline Minecraft 1.8 browser build.</p>
+            <div class="game-card-top"><h3>EaglercraftX 1.8</h3><span class="game-badge">INSTALLED</span></div>
+            <p>Actual offline EaglercraftX 1.8 browser client.</p>
             <button class="card-btn" onclick="launchEagler('Games/Eaglercraft/1.8/index.html','EaglercraftX 1.8')">Play Game <span class="arrow">→</span></button>
           </div>
         </article>
 
-        <article class="game-card library-item eagler playable" data-search="eaglercraft minecraft 1.12.2 1.12 offline wasm gc browser">
+        <article class="game-card library-item playable" data-search="eaglercraft eaglercraftx minecraft 1.12 1.12.2 offline browser wasm wasm-gc">
           <div class="game-art eagler-art">
-            <div class="game-icon minecraft-icon" aria-label="Eaglercraft 1.12.2 icon">
-              <svg viewBox="0 0 64 64" fill="none">
+            <div class="game-icon minecraft-icon alt">
+              <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
                 <rect x="7" y="9" width="50" height="46" rx="7" fill="#8A5AE8"/>
                 <path d="M16 19h32v10H16z" fill="#C09BFF"/>
                 <path d="M16 35h13v13H16zM35 35h13v13H35z" fill="#5C3D96"/>
@@ -543,16 +483,16 @@ button{cursor:pointer}
             <div class="version-ribbon">1.12.2</div>
           </div>
           <div class="game-card-body">
-            <div class="game-card-top"><h3>Eaglercraft</h3><span class="game-badge">INSTALLED</span></div>
-            <p>Offline Minecraft 1.12.2 WASM-GC build.</p>
+            <div class="game-card-top"><h3>Eaglercraft 1.12.2</h3><span class="game-badge">INSTALLED</span></div>
+            <p>Actual offline 1.12.2 WASM-GC browser client.</p>
             <button class="card-btn" onclick="launchEagler('Games/Eaglercraft/1.12.2/index.html','Eaglercraft 1.12.2')">Play Game <span class="arrow">→</span></button>
           </div>
         </article>
 
-        <article class="game-card library-item games playable" data-search="2048 puzzle numbers merge game">
+        <article class="game-card library-item playable" data-search="2048 puzzle numbers merge game">
           <div class="game-art game-2048">
-            <div class="game-icon puzzle-icon" aria-label="2048 icon">
-              <svg viewBox="0 0 64 64" fill="none">
+            <div class="game-icon puzzle-icon">
+              <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
                 <rect x="6" y="6" width="52" height="52" rx="12" fill="#2A1B40"/>
                 <rect x="13" y="13" width="16" height="16" rx="4" fill="#7042A4"/>
                 <rect x="35" y="13" width="16" height="16" rx="4" fill="#A970FF"/>
@@ -569,23 +509,6 @@ button{cursor:pointer}
             <button class="card-btn" onclick="launchGame()">Play Game <span class="arrow">→</span></button>
           </div>
         </article>
-
-        <article class="game-card library-item games empty-slot">
-          <div class="game-art empty-art">
-            <div class="game-icon slot-icon" aria-label="Empty library slot">
-              <svg viewBox="0 0 64 64" fill="none">
-                <rect x="10" y="10" width="44" height="44" rx="11" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5"/>
-                <path d="M32 20v24M20 32h24" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-              </svg>
-            </div>
-          </div>
-          <div class="game-card-body">
-            <div class="game-card-top"><h3>Library Slot</h3><span class="game-badge soon">EMPTY</span></div>
-            <p>Ready for the next game or project you add.</p>
-            <button class="card-btn disabled" disabled>Coming Soon</button>
-          </div>
-        </article>
-
       </div>
     </section>
 
@@ -654,29 +577,31 @@ function switchTab(id, el){
   if(id==='dashboard')checkApi();
 }
 function go(id){switchTab(id,document.querySelector('.nav-item[data-tab="'+id+'"]'))}
+function launchEagler(url,title){
+  const overlay=document.getElementById('instance-overlay');
+  overlay.style.display='flex';
+  document.getElementById('app-frame').src=url;
+  document.querySelector('.instance-title').textContent='SPITz-X • '+title.toUpperCase();
+}
 function searchLibrary(query){
-  const q = query.trim().toLowerCase();
-  let shown = 0;
+  const q=query.trim().toLowerCase();
+  let shown=0;
   document.querySelectorAll('.library-item').forEach(card=>{
-    const haystack = (card.dataset.search || card.textContent).toLowerCase();
-    const match = !q || haystack.includes(q);
-    card.style.display = match ? '' : 'none';
-    if(match && !card.classList.contains('empty-slot')) shown++;
+    const haystack=(card.dataset.search||card.textContent).toLowerCase();
+    const match=!q||haystack.includes(q);
+    card.style.display=match?'':'none';
+    if(match)shown++;
   });
-  document.getElementById('library-results').textContent = shown;
-  document.getElementById('library-clear').hidden = !q;
+  const results=document.getElementById('library-results');
+  if(results)results.textContent=shown;
+  const clear=document.getElementById('library-clear');
+  if(clear)clear.hidden=!q;
 }
 function clearLibrarySearch(){
   const input=document.getElementById('library-search');
   input.value='';
   searchLibrary('');
   input.focus();
-}
-function launchEagler(url,title){
-  const overlay=document.getElementById('instance-overlay');
-  overlay.style.display='flex';
-  document.getElementById('app-frame').src=url;
-  document.querySelector('.instance-title').textContent='SPITz-X • '+title.toUpperCase();
 }
 function launchGame(){
   const overlay=document.getElementById('instance-overlay');
