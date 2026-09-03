@@ -78,17 +78,17 @@
 
             <!-- Media Tab -->
             <div id="media" class="tab-content">
-                <h1>Media & Video Streamer</h1>
+                <h1>Media & Video Player</h1>
                 <div class="panel-grid">
                     <div class="panel" style="grid-column: span 2;">
-                        <h3>Custom Stream Viewer</h3>
-                        <p>Input a direct stream URL or source asset file to run it inside the sandbox frame.</p>
+                        <h3>Local Video Streamer</h3>
+                        <p>Paste a direct .mp4 video link to use native browser controls (Download, Speed, PiP via the 3-dot menu).</p>
                         <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                            <input type="text" class="input-box" id="media-url" placeholder="https://..." style="margin-bottom: 0;">
-                            <button class="action-btn" style="width: 150px; margin-top: 0;" onclick="loadMedia()">Stream</button>
+                            <input type="text" class="input-box" id="media-url" placeholder="https://example.com/video.mp4" style="margin-bottom: 0;">
+                            <button class="action-btn" style="width: 150px; margin-top: 0;" onclick="loadMedia()">Load Video</button>
                         </div>
                         <div style="width: 100%; height: 350px; background: #05030a; border: 1px solid #231e38; border-radius: 6px; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-                            <iframe id="media-player-frame" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+                            <video id="native-video-player" controls style="width: 100%; height: 100%; max-height: 350px; background: #000;"></video>
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
 
     <!-- Application Overlay Viewer Frame -->
     <div id="app-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0b0914; z-index: 1000; flex-direction: column;">
-        <div style="padding: 15px; background: #110e1b; border-bottom: 1px solid #a371f7; display: flex; justify-content: space-width; justify-content: space-between; align-items: center; box-shadow: 0 0 15px rgba(163, 113, 247, 0.2);">
+        <div style="padding: 15px; background: #110e1b; border-bottom: 1px solid #a371f7; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 0 15px rgba(163, 113, 247, 0.2);">
             <h3 style="margin: 0; color: #a371f7; text-shadow: 0 0 5px #a371f7;">SPITz-X Instance Active</h3>
             <button class="action-btn" style="width: auto; margin: 0; padding: 5px 15px; border-color: #ff5555; color: #ff5555;" onclick="closeInstance()">Terminate Instance</button>
         </div>
@@ -139,9 +139,10 @@
         }
         function loadMedia() {
             const inputVal = document.getElementById('media-url').value;
-            const player = document.getElementById('media-player-frame');
+            const player = document.getElementById('native-video-player');
             if (inputVal) {
                 player.src = inputVal;
+                player.load();
             }
         }
     </script>
