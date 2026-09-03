@@ -47,7 +47,7 @@
 <div id="games" class="tab-content"><h1>Games Arcade</h1><p class="subtitle">Run your local HTML5 projects inside SPITz-X.</p><div class="panel"><h3>Launch Game Instance</h3><p>Run an HTML5 build hosted with the SPITz-X site.</p><button class="action-btn" onclick="launchInstance('Games/2048-master/2048-master/index.html')">Launch 2048</button></div></div>
 <div id="media" class="tab-content">
 <h1>Media Processor</h1>
-<p class="subtitle">Launch the YT-Ai media workspace in a separate browser window.</p>
+<p class="subtitle">Open the YT-Ai media workspace normally in a new browser tab.</p>
 
 <div class="panel">
   <div class="ytai-launch">
@@ -57,8 +57,7 @@
       <div class="ytai-badge">SPITz-X MEDIA</div>
       <h3>YT-Ai Converter</h3>
       <p>
-        Open the YT-Ai converter in a clean <code>about:blank</code>
-        workspace instead of embedding it inside SPITz-X.
+        Open the YT-Ai converter directly in a new browser tab instead of embedding it inside SPITz-X.
       </p>
     </div>
   </div>
@@ -80,7 +79,7 @@
 <div class="panel" style="margin-top:20px">
   <h3>How it works</h3>
   <div class="code-box">
-    SPITz-X → Launch YT-Ai → about:blank → YT-Ai workspace
+    SPITz-X → Launch YT-Ai → YT-Ai workspace
   </div>
 </div>
 </div>
@@ -112,7 +111,9 @@ function saveApi(){
 }
 
 function openYTAiWindow(){
-  const win = window.open('about:blank', '_blank');
+  const target = 'https://melamrahul.github.io/yt-ai/';
+
+  const win = window.open(target, '_blank', 'noopener,noreferrer');
 
   const status = document.getElementById('ytai-window-status');
 
@@ -122,32 +123,7 @@ function openYTAiWindow(){
     return;
   }
 
-  const target = 'https://melamrahul.github.io/yt-ai/';
-
-  win.document.open();
-  win.document.write(`<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>YT-Ai Converter</title>
-<style>
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#05030a}
-iframe{width:100%;height:100%;border:0;display:block}
-</style>
-</head>
-<body>
-<iframe
-  src="${target}"
-  title="YT-Ai Converter"
-  allow="clipboard-read; clipboard-write"
-  referrerpolicy="no-referrer"
-></iframe>
-</body>
-</html>`);
-  win.document.close();
-
-  status.textContent = 'YT-Ai opened in a new browser window.';
+  status.textContent = 'YT-Ai opened in a new tab.';
   status.className = 'media-status success';
 }
 
