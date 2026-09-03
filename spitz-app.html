@@ -81,14 +81,14 @@
                 <h1>Media & Video Player</h1>
                 <div class="panel-grid">
                     <div class="panel" style="grid-column: span 2;">
-                        <h3>Local Video Streamer</h3>
-                        <p>Paste a direct .mp4 video link to use native browser controls (Download, Speed, PiP via the 3-dot menu).</p>
+                        <h3>Alternative Stream Viewer</h3>
+                        <p>Paste any standard watch link to load it through an alternative privacy frontend.</p>
                         <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                            <input type="text" class="input-box" id="media-url" placeholder="https://example.com/video.mp4" style="margin-bottom: 0;">
-                            <button class="action-btn" style="width: 150px; margin-top: 0;" onclick="loadMedia()">Load Video</button>
+                            <input type="text" class="input-box" id="media-url" placeholder="https://www.youtube.com/watch?v=..." style="margin-bottom: 0;">
+                            <button class="action-btn" style="width: 150px; margin-top: 0;" onclick="loadMedia()">Stream Video</button>
                         </div>
                         <div style="width: 100%; height: 350px; background: #05030a; border: 1px solid #231e38; border-radius: 6px; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-                            <video id="native-video-player" controls style="width: 100%; height: 100%; max-height: 350px; background: #000;"></video>
+                            <iframe id="privacy-video-frame" src="" style="width: 100%; height: 100%; border: none;" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>
@@ -139,10 +139,19 @@
         }
         function loadMedia() {
             const inputVal = document.getElementById('media-url').value;
-            const player = document.getElementById('native-video-player');
+            const player = document.getElementById('privacy-video-frame');
+            
             if (inputVal) {
-                player.src = inputVal;
-                player.load();
+                let videoId = '';
+                if (inputVal.includes('watch?v=')) {
+                    videoId = inputVal.split('watch?v=')[1].split('&')[0];
+                } else if (inputVal.includes('youtu.be/')) {
+                    videoId = inputVal.split('youtu.be/')[1].split('?')[0];
+                }
+                
+                if (videoId) {
+                    player.src = `https://piped.video/embed/${videoId}`;
+                }
             }
         }
     </script>
