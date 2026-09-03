@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: monospace;
+    overflow: hidden;
+    height: 100vh;
+}
+.panel {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+.panel h3 {
+    margin-top: 0;
+    color: #58a6ff;
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 10px;
+}
