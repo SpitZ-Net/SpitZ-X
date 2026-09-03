@@ -12,21 +12,17 @@
 .media-input-row{display:flex;gap:10px;align-items:stretch}.media-input-row .input-box{flex:1;margin-bottom:0}.media-input-row .action-btn{width:140px;margin-top:0}.media-status{margin-top:12px;padding:10px;background:#0b0914;border:1px solid #231e38;border-radius:5px;color:#77718b;font-size:12px}.media-status.success{color:#a371f7;border-color:#5c3d91}.media-status.error{color:#ff7777;border-color:#633333}.video-container{width:100%;min-height:420px;background:#05030a;border:1px solid #231e38;border-radius:6px;display:flex;justify-content:center;align-items:center;overflow:hidden;margin-top:15px}#direct-video-player{width:100%;height:420px;background:#000}.media-placeholder{text-align:center;color:#514c5e}.media-placeholder .icon{font-size:40px;margin-bottom:10px}.media-actions{display:flex;gap:10px;margin-top:12px}.media-actions button{flex:1}.media-meta{display:grid;grid-template-columns:140px 1fr;gap:8px;font-size:12px;margin-top:15px}.media-meta div{padding:8px;background:#0b0914;border:1px solid #231e38}.status-dot{display:inline-block;width:8px;height:8px;background:#a371f7;border-radius:50%;margin-right:7px;box-shadow:0 0 8px #a371f7}.feature-list{padding-left:20px;line-height:2}.code-box{background:#08060d;border:1px solid #231e38;border-radius:5px;padding:15px;overflow-x:auto;color:#aaa4b9;font-size:12px;line-height:1.6}.small{font-size:11px;color:#77718b}.drop-zone{border:1px dashed #5c3d91;border-radius:6px;padding:18px;text-align:center;margin-top:10px}.drop-zone.drag{background:#1a1528;border-color:#a371f7}.file-name{color:#a371f7;margin-top:8px;word-break:break-all}
 @media(max-width:750px){.sidebar{width:190px;min-width:190px}.main-content{padding:20px}.media-input-row{flex-direction:column}.media-input-row .action-btn{width:100%}.video-container{min-height:300px}#direct-video-player{height:300px}.media-actions{flex-direction:column}}
 
-/* YT-Ai protected media area */
+/* YT-Ai media area */
 .ytai-panel{padding:0!important;overflow:hidden}
 .ytai-top{display:flex;justify-content:space-between;align-items:center;padding:25px;border-bottom:1px solid #231e38;background:linear-gradient(90deg,rgba(163,113,247,.10),transparent)}
 .ytai-badge{color:#a371f7;font-size:10px;font-weight:bold;letter-spacing:2px}
 .ytai-lock-icon{font-size:28px}
-.ytai-login{padding:55px 25px}
-.ytai-login-box{max-width:560px;margin:auto;text-align:center}
-.ytai-big-lock{width:70px;height:70px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;border-radius:18px;background:#151022;border:1px solid #38265a;font-size:30px}
-.ytai-login-box h3{color:#fff;margin:0 0 8px}
-.ytai-login-box p{color:#77718b;line-height:1.6}
-.ytai-unlocked{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:#0d1512;border-bottom:1px solid #231e38;color:#aaa4b9;font-size:12px}
-.ytai-status-dot{display:inline-block;width:8px;height:8px;background:#a371f7;border-radius:50%;margin-right:7px;box-shadow:0 0 8px #a371f7}
-.ytai-frame-wrapper{height:850px;width:100%;background:#05030a}
+.ytai-frame-wrapper{height:calc(100vh - 250px);min-height:700px;width:100%;background:#05030a}
 #ytai-frame{width:100%;height:100%;border:0;display:block;background:#05030a}
 .ytai-notice{display:flex;gap:9px;padding:13px 18px;border-top:1px solid #231e38;color:#77718b;font-size:11px}
+@media(max-width:750px){
+  .ytai-frame-wrapper{height:calc(100vh - 220px);min-height:650px}
+}
 @media(max-width:750px){
   .ytai-login{padding:35px 18px}
   .ytai-frame-wrapper{height:800px}
@@ -44,72 +40,33 @@
 <div id="games" class="tab-content"><h1>Games Arcade</h1><p class="subtitle">Run your local HTML5 projects inside SPITz-X.</p><div class="panel"><h3>Launch Game Instance</h3><p>Run an HTML5 build hosted with the SPITz-X site.</p><button class="action-btn" onclick="launchInstance('Games/2048-master/2048-master/index.html')">Launch 2048</button></div></div>
 <div id="media" class="tab-content">
 <h1>Media Processor</h1>
-<p class="subtitle">Password-protected access to the YT-Ai media workspace.</p>
+<p class="subtitle">YT-Ai MP3 / MP4 media workspace.</p>
 
 <div class="panel ytai-panel">
   <div class="ytai-top">
     <div>
       <div class="ytai-badge">SPITz-X MEDIA</div>
-      <h3 style="margin-bottom:6px">YT-Ai Media Tool</h3>
-      <p class="small" style="margin-top:0">Restricted workspace access</p>
+      <h3 style="margin-bottom:6px">YT-Ai Converter</h3>
+      <p class="small" style="margin-top:0">MP3 / MP4 Download</p>
     </div>
-    <div id="ytai-lock-icon" class="ytai-lock-icon">🔒</div>
+    <div class="ytai-lock-icon">▶</div>
   </div>
 
-  <div id="ytai-login" class="ytai-login">
-    <div class="ytai-login-box">
-      <div class="ytai-big-lock">🔐</div>
-      <h3>Restricted Media Tool</h3>
-      <p>Enter the SPITz-X media password to open the YT-Ai workspace.</p>
-      <div class="media-input-row">
-        <input class="input-box" id="ytai-password" type="password"
-          placeholder="Enter media password" autocomplete="off" style="margin-bottom:0">
-        <button class="action-btn" id="ytai-login-button" style="width:140px;margin-top:0">
-          Unlock
-        </button>
-      </div>
-      <div id="ytai-error" class="media-status error" style="display:none;margin-top:12px"></div>
-    </div>
+  <div class="ytai-frame-wrapper">
+    <iframe
+      id="ytai-frame"
+      src="https://melamrahul.github.io/yt-ai/"
+      title="YT-Ai Converter"
+      loading="lazy"
+      referrerpolicy="no-referrer"
+      allow="clipboard-read; clipboard-write"
+    ></iframe>
   </div>
 
-  <div id="ytai-content" style="display:none">
-    <div class="ytai-unlocked">
-      <span><span class="ytai-status-dot"></span> YT-Ai unlocked</span>
-      <button class="action-btn secondary" id="ytai-lock-button" style="width:auto;margin:0">
-        🔒 Lock
-      </button>
-    </div>
-
-    <div class="ytai-frame-wrapper">
-      <iframe
-        id="ytai-frame"
-        src="https://melamrahul.github.io/yt-ai/"
-        title="YT-Ai"
-        loading="lazy"
-        referrerpolicy="no-referrer"
-        allow="clipboard-read; clipboard-write"
-      ></iframe>
-    </div>
-
-    <div class="ytai-notice">
-      <strong>ℹ</strong>
-      <span>Use the tool only for content you have permission to download or process.</span>
-    </div>
+  <div class="ytai-notice">
+    <strong>ℹ</strong>
+    <span>Use the tool only for content you have permission to download or process.</span>
   </div>
-</div>
-
-<div class="panel" style="margin-top:20px">
-  <h3>SPITz-X Access</h3>
-  <p>
-    Authentication is handled by the SPITz-X API. The password is stored on the
-    server rather than in this GitHub Pages file.
-  </p>
-  <div class="code-box">
-    GitHub Pages → SPITz-X API → authenticated session → YT-Ai
-  </div>
-  <p class="small">
-    Sessions are temporary and are cleared when you lock the tool or the session expires.
-  </p>
 </div>
 </div>
 <div id="docs" class="tab-content"><h1>Documentation</h1><p class="subtitle">SPITz-X deployment notes.</p><div class="panel-grid"><div class="panel"><h3>GitHub Pages</h3><p>The frontend can be hosted as a static GitHub Pages site.</p><ul class="feature-list"><li>HTML/CSS/JS frontend</li><li>Native playback uses authorized MP4 copies from the SPITz-X API</li><li>Configure API URL in Settings</li></ul></div><div class="panel"><h3>Media API</h3><p>The API handles authorized source files and FFmpeg conversion.</p><ul class="feature-list"><li>POST /process</li><li>POST /convert</li><li>POST /admin/youtube-convert (admin)</li><li>GET /library/:videoId</li><li>GET /media/:videoId</li><li>GET /media/:videoId/download</li><li>GET /health</li></ul></div></div></div>
@@ -139,92 +96,6 @@ function saveApi(){
   checkApi();
 }
 
-async function loginYTAi(){
-  const input=document.getElementById('ytai-password');
-  const button=document.getElementById('ytai-login-button');
-  const error=document.getElementById('ytai-error');
-
-  error.style.display='none';
-
-  if(!input.value.trim()){
-    error.textContent='Enter the media password.';
-    error.style.display='block';
-    return;
-  }
-
-  button.disabled=true;
-  button.textContent='Checking...';
-
-  try{
-    const r=await fetch(API+'/media-login',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({password:input.value})
-    });
-
-    const d=await r.json();
-
-    if(!r.ok) throw new Error(d.error||'Authentication failed.');
-
-    sessionStorage.setItem('spitzx-media-token',d.token);
-    input.value='';
-    showYTAi();
-  }catch(e){
-    error.textContent=e.message;
-    error.style.display='block';
-  }finally{
-    button.disabled=false;
-    button.textContent='Unlock';
-  }
-}
-
-function showYTAi(){
-  document.getElementById('ytai-login').style.display='none';
-  document.getElementById('ytai-content').style.display='block';
-  document.getElementById('ytai-lock-icon').textContent='🔓';
-}
-
-async function lockYTAi(){
-  const token=sessionStorage.getItem('spitzx-media-token');
-
-  if(token){
-    try{
-      await fetch(API+'/media-logout',{
-        method:'POST',
-        headers:{Authorization:'Bearer '+token}
-      });
-    }catch(e){}
-  }
-
-  sessionStorage.removeItem('spitzx-media-token');
-  document.getElementById('ytai-login').style.display='block';
-  document.getElementById('ytai-content').style.display='none';
-  document.getElementById('ytai-lock-icon').textContent='🔒';
-}
-
-async function restoreYTAiSession(){
-  const token=sessionStorage.getItem('spitzx-media-token');
-
-  if(!token) return;
-
-  try{
-    const r=await fetch(API+'/media-auth',{
-      headers:{Authorization:'Bearer '+token},
-      cache:'no-store'
-    });
-
-    const d=await r.json();
-
-    if(d.authenticated){
-      showYTAi();
-    }else{
-      sessionStorage.removeItem('spitzx-media-token');
-    }
-  }catch(e){
-    sessionStorage.removeItem('spitzx-media-token');
-  }
-}
-
 async function checkApi(){
   try{
     const r=await fetch(API+'/health',{cache:'no-store'});
@@ -244,16 +115,8 @@ function closeInstance(){
   document.getElementById('app-frame').src='';
 }
 
-document.getElementById('ytai-login-button').addEventListener('click',loginYTAi);
-document.getElementById('ytai-lock-button').addEventListener('click',lockYTAi);
-
-document.getElementById('ytai-password').addEventListener('keydown',e=>{
-  if(e.key==='Enter')loginYTAi();
-});
-
 document.getElementById('api-endpoint').value=API;
 checkApi();
-restoreYTAiSession();
 
 window.addEventListener('load',()=>{
   setTimeout(()=>{
