@@ -1,2302 +1,1835 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SPITz-X Workspace</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>SPITz-X</title>
 
 <style>
+
 * {
     box-sizing: border-box;
-}
-
-:root {
-    --bg: #08070d;
-    --bg2: #0d0b14;
-    --panel: #12101a;
-    --panel2: #171421;
-    --border: #282238;
-    --accent: #a371f7;
-    --accent2: #c29cff;
-    --text: #e2deeb;
-    --muted: #777184;
-    --danger: #ff6666;
-    --success: #70d6a0;
 }
 
 html,
 body {
     margin: 0;
+    padding: 0;
     width: 100%;
-    height: 100%;
-    background: var(--bg);
-    color: var(--text);
-    font-family: Consolas, Monaco, monospace;
-    overflow: hidden;
+    min-height: 100%;
 }
 
-/* =====================================================
+body {
+
+    background:
+        radial-gradient(
+            circle at top right,
+            #24143d 0,
+            #0a0710 42%,
+            #050408 100%
+        );
+
+    color: #f4efff;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
    SNOW
-===================================================== */
+========================================================= */
 
 #snow {
+
     position: fixed;
+
     inset: 0;
+
     width: 100%;
     height: 100%;
+
     pointer-events: none;
+
     z-index: 0;
+
+    opacity: .65;
 }
 
-/* =====================================================
-   LOADING
-===================================================== */
 
-#loading-screen {
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
-    background: #040308;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: opacity .5s ease;
-}
-
-.loading-logo {
-    font-size: 42px;
-    font-weight: bold;
-    letter-spacing: 5px;
-    color: white;
-    text-shadow:
-        0 0 10px var(--accent),
-        0 0 30px var(--accent);
-}
-
-.loading-sub {
-    margin-top: 12px;
-    color: var(--muted);
-    font-size: 12px;
-}
-
-.loading-track {
-    width: 320px;
-    height: 4px;
-    background: #1b1726;
-    margin-top: 22px;
-    overflow: hidden;
-    border-radius: 5px;
-}
-
-.loading-fill {
-    width: 0;
-    height: 100%;
-    background: var(--accent);
-    box-shadow: 0 0 15px var(--accent);
-    animation: loading 1.8s ease forwards;
-}
-
-@keyframes loading {
-    from {
-        width: 0;
-    }
-
-    to {
-        width: 100%;
-    }
-}
-
-/* =====================================================
+/* =========================================================
    APP
-===================================================== */
+========================================================= */
 
-#app {
+.app {
+
     position: relative;
+
     z-index: 1;
-    width: 100%;
-    height: 100%;
-    display: none;
-}
 
-#app.active {
     display: flex;
+
+    min-height: 100vh;
+
 }
 
-/* =====================================================
+
+/* =========================================================
    SIDEBAR
-===================================================== */
+========================================================= */
 
 .sidebar {
+
     width: 255px;
-    min-width: 255px;
-    height: 100%;
-    background: rgba(15, 12, 23, .97);
-    border-right: 1px solid var(--border);
+
+    min-height: 100vh;
+
+    background:
+        rgba(11, 8, 17, .94);
+
+    border-right:
+        1px solid #30213f;
+
+    flex-shrink: 0;
+
     display: flex;
+
     flex-direction: column;
+
 }
+
 
 .logo {
-    padding: 27px 25px 8px;
-    font-size: 25px;
-    font-weight: bold;
-    letter-spacing: 3px;
-    color: var(--accent);
-    text-shadow: 0 0 15px rgba(163,113,247,.5);
+
+    padding: 28px 24px 18px;
+
 }
 
-.logo-version {
-    padding: 0 25px 25px;
-    color: #4f4a5d;
-    font-size: 10px;
+.logo h1 {
+
+    margin: 0;
+
+    color: #a66cff;
+
+    font-size: 25px;
+
+    letter-spacing: 4px;
+
 }
+
+.logo small {
+
+    color: #6f667d;
+
+    font-size: 10px;
+
+}
+
 
 .nav {
+
     display: flex;
+
     flex-direction: column;
+
+    margin-top: 20px;
+
 }
 
-.nav-button {
+
+.nav button {
+
     border: 0;
-    border-left: 3px solid transparent;
-    background: transparent;
-    color: #aaa4b7;
+
+    border-left:
+        3px solid transparent;
+
+    background:
+        transparent;
+
+    color: #aaa0b7;
+
     text-align: left;
-    padding: 15px 23px;
-    font-family: inherit;
+
+    padding:
+        17px 24px;
+
+    font-family:
+        inherit;
+
     cursor: pointer;
-    transition: .2s;
+
+    font-size: 13px;
+
+    transition:
+        .15s;
+
 }
 
-.nav-button:hover {
-    background: #191523;
-    color: white;
+
+.nav button:hover {
+
+    background:
+        rgba(166, 108, 255, .08);
+
+    color: #fff;
+
 }
 
-.nav-button.active {
-    background: #1c1728;
-    border-left-color: var(--accent);
-    color: var(--accent);
+
+.nav button.active {
+
+    background:
+        rgba(166, 108, 255, .10);
+
+    border-left-color:
+        #a66cff;
+
+    color:
+        #c795ff;
+
 }
 
-.sidebar-bottom {
+
+.sidebar-footer {
+
     margin-top: auto;
-    border-top: 1px solid var(--border);
-    padding: 18px 22px;
-    color: #514b5d;
+
+    padding: 22px;
+
+    border-top:
+        1px solid #241b30;
+
+    color: #665d72;
+
     font-size: 10px;
+
     line-height: 1.7;
+
 }
 
-/* =====================================================
-   MAIN
-===================================================== */
 
-.main {
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content {
+
     flex: 1;
-    height: 100%;
-    overflow-y: auto;
-    padding: 35px;
+
+    min-width: 0;
+
+    padding:
+        38px;
+
 }
 
-.main::-webkit-scrollbar {
-    width: 8px;
-}
-
-.main::-webkit-scrollbar-thumb {
-    background: #292238;
-    border-radius: 10px;
-}
 
 .page {
+
     display: none;
-    animation: pageIn .25s ease;
+
+    max-width:
+        1200px;
+
+    margin: 0 auto;
+
 }
+
 
 .page.active {
+
     display: block;
+
 }
 
-@keyframes pageIn {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.page-title {
+
+    margin-bottom: 25px;
+
 }
 
-h1 {
+
+.page-title h2 {
+
+    margin: 0 0 8px;
+
+    font-size: 28px;
+
+}
+
+
+.page-title p {
+
     margin: 0;
-    color: white;
-    font-size: 30px;
+
+    color: #80778e;
+
+    font-size: 13px;
+
 }
 
-h2 {
-    color: white;
-}
 
-.subtitle {
-    color: var(--muted);
-    margin-top: 8px;
-    line-height: 1.6;
-}
+/* =========================================================
+   CARDS
+========================================================= */
 
-/* =====================================================
-   PANELS
-===================================================== */
+.card {
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-    gap: 18px;
-    margin-top: 22px;
-}
+    background:
+        rgba(16, 12, 23, .91);
 
-.panel {
-    background: rgba(18,16,26,.96);
-    border: 1px solid var(--border);
-    border-radius: 9px;
+    border:
+        1px solid #30213f;
+
+    border-radius: 10px;
+
     padding: 22px;
-    box-shadow: 0 8px 25px rgba(0,0,0,.25);
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,.22);
+
 }
 
-.panel h3 {
-    margin-top: 0;
-    color: var(--accent);
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 11px;
+
+.card h3 {
+
+    margin:
+        0 0 15px;
+
+    color:
+        #ad72ff;
+
+    font-size: 16px;
+
 }
 
-.panel p {
-    line-height: 1.65;
+
+.card p {
+
+    color: #aaa1b1;
+
+    line-height: 1.6;
+
 }
 
-.panel-wide {
-    grid-column: 1 / -1;
-}
 
-/* =====================================================
-   STAT CARDS
-===================================================== */
-
-.stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 15px;
-    margin-top: 22px;
-}
-
-.stat {
-    background: #110e19;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 18px;
-}
-
-.stat-label {
-    color: var(--muted);
-    font-size: 11px;
-}
-
-.stat-value {
-    margin-top: 8px;
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-/* =====================================================
+/* =========================================================
    BUTTONS
-===================================================== */
+========================================================= */
 
-button {
-    font-family: inherit;
+button,
+input {
+
+    font-family:
+        inherit;
+
 }
 
-.btn {
-    border: 1px solid var(--accent);
-    background: transparent;
-    color: var(--accent);
-    border-radius: 6px;
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: .2s;
+
+.action {
+
+    border:
+        1px solid #995bff;
+
+    background:
+        #110b1c;
+
+    color:
+        #c18aff;
+
+    padding:
+        11px 18px;
+
+    border-radius:
+        6px;
+
+    cursor:
+        pointer;
+
+    transition:
+        .15s;
+
 }
 
-.btn:hover {
-    background: var(--accent);
-    color: #09070e;
-    box-shadow: 0 0 15px rgba(163,113,247,.35);
+
+.action:hover {
+
+    background:
+        #241334;
+
 }
 
-.btn.secondary {
-    border-color: #4b4558;
-    color: #aaa4b4;
+
+.action:disabled {
+
+    opacity:
+        .45;
+
+    cursor:
+        not-allowed;
+
 }
 
-.btn.secondary:hover {
-    background: #272232;
-    color: white;
-    box-shadow: none;
-}
 
-.btn.danger {
-    border-color: var(--danger);
-    color: var(--danger);
-}
-
-.btn.danger:hover {
-    background: var(--danger);
-    color: #160707;
-}
-
-/* =====================================================
+/* =========================================================
    INPUTS
-===================================================== */
+========================================================= */
 
-.input {
+input[type="text"],
+input[type="url"] {
+
     width: 100%;
-    background: #09070e;
-    border: 1px solid var(--border);
-    color: white;
-    padding: 12px;
-    border-radius: 6px;
-    outline: none;
-    font-family: inherit;
+
+    background:
+        #08060c;
+
+    border:
+        1px solid #352743;
+
+    color:
+        #eee;
+
+    padding:
+        13px 14px;
+
+    border-radius:
+        6px;
+
+    outline:
+        none;
+
 }
 
-.input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 10px rgba(163,113,247,.15);
+
+input:focus {
+
+    border-color:
+        #995bff;
+
 }
 
-.label {
-    display: block;
-    color: #aaa4b4;
-    font-size: 12px;
-    margin-bottom: 7px;
+
+/* =========================================================
+   YOUTUBE
+========================================================= */
+
+.url-row {
+
+    display:
+        flex;
+
+    gap:
+        10px;
+
 }
 
-/* =====================================================
-   STATUS
-===================================================== */
 
-.status {
-    padding: 11px;
-    border: 1px solid var(--border);
-    background: #09070e;
-    border-radius: 6px;
-    margin-top: 12px;
-    color: var(--muted);
-    font-size: 12px;
+.url-row input {
+
+    flex:
+        1;
+
 }
 
-.status.success {
-    color: var(--success);
-    border-color: #315b46;
+
+.video-info {
+
+    margin-top:
+        18px;
+
+    display:
+        none;
+
+    grid-template-columns:
+        180px 1fr;
+
+    gap:
+        18px;
+
 }
 
-.status.error {
-    color: var(--danger);
-    border-color: #653737;
+
+.video-info.show {
+
+    display:
+        grid;
+
 }
 
-.dot {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 9px var(--accent);
-    margin-right: 7px;
+
+.video-info img {
+
+    width:
+        180px;
+
+    height:
+        102px;
+
+    object-fit:
+        cover;
+
+    border-radius:
+        6px;
+
+    border:
+        1px solid #39294a;
+
 }
 
-/* =====================================================
-   MEDIA
-===================================================== */
-
-.media-row {
-    display: flex;
-    gap: 10px;
-}
-
-.media-row .input {
-    flex: 1;
-}
-
-.media-row .btn {
-    min-width: 120px;
-}
-
-.media-info {
-    display: none;
-    margin-top: 18px;
-}
-
-.media-info.active {
-    display: block;
-}
-
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 10px;
-    margin-top: 12px;
-}
-
-.info-box {
-    background: #0a080f;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 12px;
-}
 
 .info-title {
-    color: var(--muted);
-    font-size: 10px;
+
+    font-size:
+        17px;
+
+    color:
+        #fff;
+
+    margin-bottom:
+        8px;
+
 }
 
-.info-value {
-    color: white;
-    margin-top: 5px;
-    word-break: break-word;
+
+.info-muted {
+
+    color:
+        #83798e;
+
+    font-size:
+        12px;
+
 }
 
-.video-shell {
-    margin-top: 18px;
-    width: 100%;
-    height: 430px;
-    background: #000;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    display: none;
+
+/* =========================================================
+   UPLOAD
+========================================================= */
+
+.upload-zone {
+
+    border:
+        1px dashed #5a416e;
+
+    border-radius:
+        8px;
+
+    padding:
+        35px;
+
+    text-align:
+        center;
+
+    background:
+        rgba(15, 10, 22, .7);
+
 }
 
-.video-shell.active {
-    display: block;
+
+.upload-zone.drag {
+
+    border-color:
+        #b174ff;
+
+    background:
+        rgba(116, 65, 170, .12);
+
 }
 
-#video-player {
-    width: 100%;
-    height: 100%;
-    background: #000;
+
+.file-name {
+
+    margin-top:
+        14px;
+
+    color:
+        #aaa;
+
+    font-size:
+        12px;
+
 }
 
-.output-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 14px;
+
+.processing-buttons {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        12px;
+
+    margin-top:
+        16px;
+
 }
 
-.output-buttons .btn {
-    flex: 1;
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status {
+
+    margin-top:
+        15px;
+
+    padding:
+        12px 14px;
+
+    border:
+        1px solid #31223f;
+
+    border-radius:
+        6px;
+
+    color:
+        #91869d;
+
+    background:
+        #09070d;
+
+    font-size:
+        12px;
+
 }
 
-/* =====================================================
-   CODE
-===================================================== */
 
-.code {
-    background: #07060b;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 15px;
-    color: #aaa4b5;
-    white-space: pre-wrap;
-    overflow-x: auto;
-    line-height: 1.6;
-    font-size: 12px;
+.status.error {
+
+    color:
+        #ff7272;
+
+    border-color:
+        #552727;
+
 }
 
-/* =====================================================
-   DOCS
-===================================================== */
 
-.doc-card {
-    cursor: pointer;
-    transition: .2s;
+.status.success {
+
+    color:
+        #91e6aa;
+
+    border-color:
+        #294a34;
+
 }
 
-.doc-card:hover {
-    transform: translateY(-2px);
-    border-color: #513a78;
+
+/* =========================================================
+   RESULT
+========================================================= */
+
+.result {
+
+    display:
+        none;
+
+    margin-top:
+        18px;
+
 }
 
-.doc-card h3 {
-    margin-bottom: 8px;
+
+.result.show {
+
+    display:
+        block;
+
 }
 
-.doc-content {
-    margin-top: 20px;
-    display: none;
+
+.result video {
+
+    width:
+        100%;
+
+    max-height:
+        550px;
+
+    background:
+        #000;
+
+    border-radius:
+        7px;
+
+    border:
+        1px solid #332541;
+
 }
 
-.doc-content.active {
-    display: block;
+
+.result-buttons {
+
+    display:
+        flex;
+
+    gap:
+        10px;
+
+    margin-top:
+        12px;
+
 }
 
-/* =====================================================
-   GAME
-===================================================== */
 
-.game-card {
-    display: flex;
-    flex-direction: column;
+/* =========================================================
+   GRID
+========================================================= */
+
+.grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(220px, 1fr)
+        );
+
+    gap:
+        15px;
+
 }
 
-.game-meta {
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.6;
+
+.stat {
+
+    background:
+        #0a0710;
+
+    border:
+        1px solid #2c2037;
+
+    padding:
+        18px;
+
+    border-radius:
+        7px;
+
 }
 
-.game-card .btn {
-    margin-top: auto;
+
+.stat strong {
+
+    display:
+        block;
+
+    color:
+        #c08cff;
+
+    font-size:
+        22px;
+
+    margin-bottom:
+        7px;
+
 }
 
-/* =====================================================
-   GAME OVERLAY
-===================================================== */
 
-#game-overlay {
-    position: fixed;
-    inset: 0;
-    background: #05040a;
-    z-index: 5000;
-    display: none;
-    flex-direction: column;
+.stat span {
+
+    color:
+        #756c80;
+
+    font-size:
+        11px;
+
 }
 
-#game-overlay.active {
-    display: flex;
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+.setting-row {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    gap:
+        20px;
+
+    padding:
+        15px 0;
+
+    border-bottom:
+        1px solid #251c2e;
+
 }
 
-.game-toolbar {
-    height: 58px;
-    min-height: 58px;
-    background: #100d17;
-    border-bottom: 1px solid var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 15px;
+
+.setting-row:last-child {
+
+    border-bottom:
+        0;
+
 }
 
-.game-toolbar-title {
-    color: var(--accent);
-    font-weight: bold;
+
+.setting-row label {
+
+    color:
+        #aaa1b1;
+
+    font-size:
+        13px;
+
 }
 
-.game-toolbar-buttons {
-    display: flex;
-    gap: 8px;
+
+.setting-row input {
+
+    max-width:
+        550px;
+
 }
 
-#game-frame {
-    width: 100%;
-    height: 100%;
-    border: 0;
-    flex: 1;
-    background: #000;
-}
 
-/* =====================================================
+/* =========================================================
    MOBILE
-===================================================== */
+========================================================= */
 
-@media(max-width:800px) {
-
-    .sidebar {
-        width: 190px;
-        min-width: 190px;
-    }
-
-    .main {
-        padding: 20px;
-    }
-
-    .media-row {
-        flex-direction: column;
-    }
-
-    .video-shell {
-        height: 300px;
-    }
-}
-
-@media(max-width:600px) {
+@media (
+    max-width: 800px
+) {
 
     .sidebar {
-        width: 160px;
-        min-width: 160px;
+
+        width:
+            190px;
+
     }
 
-    .logo {
-        font-size: 20px;
+    .content {
+
+        padding:
+            22px;
+
     }
 
-    .nav-button {
-        padding: 13px 15px;
-        font-size: 11px;
+    .url-row {
+
+        flex-direction:
+            column;
+
     }
+
+    .processing-buttons {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .video-info.show {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .video-info img {
+
+        width:
+            100%;
+
+        height:
+            auto;
+
+    }
+
 }
+
+
+/* =========================================================
+   GAME
+========================================================= */
+
+.game-frame {
+
+    width:
+        100%;
+
+    height:
+        650px;
+
+    border:
+        1px solid #352743;
+
+    border-radius:
+        8px;
+
+    background:
+        #000;
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <canvas id="snow"></canvas>
 
-<!-- =====================================================
-     LOADING SCREEN
-===================================================== -->
 
-<div id="loading-screen">
-
-    <div class="loading-logo">
-        SPITz-X
-    </div>
-
-    <div class="loading-track">
-        <div class="loading-fill"></div>
-    </div>
-
-    <div class="loading-sub">
-        Initializing workspace...
-    </div>
-
-</div>
+<div class="app">
 
 
 <!-- =====================================================
-     APPLICATION
+     SIDEBAR
 ===================================================== -->
 
-<div id="app">
+<aside class="sidebar">
 
-    <!-- SIDEBAR -->
+    <div class="logo">
 
-    <aside class="sidebar">
+        <h1>SPITz-X</h1>
 
-        <div class="logo">
-            SPITz-X
+        <small>WORKSPACE v2.1.0</small>
+
+    </div>
+
+
+    <nav class="nav">
+
+        <button
+            class="nav-btn active"
+            data-page="dashboard"
+        >
+            Dashboard
+        </button>
+
+        <button
+            class="nav-btn"
+            data-page="games"
+        >
+            Games Arcade
+        </button>
+
+        <button
+            class="nav-btn"
+            data-page="media"
+        >
+            Media Processor
+        </button>
+
+        <button
+            class="nav-btn"
+            data-page="docs"
+        >
+            How-To / Docs
+        </button>
+
+        <button
+            class="nav-btn"
+            data-page="analytics"
+        >
+            Analytics
+        </button>
+
+        <button
+            class="nav-btn"
+            data-page="settings"
+        >
+            Settings
+        </button>
+
+    </nav>
+
+
+    <div class="sidebar-footer">
+
+        SPITz-X Workspace<br>
+        Static Frontend<br>
+        GitHub Pages Ready<br>
+        Render API Connected
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     CONTENT
+===================================================== -->
+
+<main class="content">
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section
+    class="page active"
+    id="page-dashboard"
+>
+
+    <div class="page-title">
+
+        <h2>Dashboard</h2>
+
+        <p>
+            SPITz-X workspace overview.
+        </p>
+
+    </div>
+
+
+    <div class="grid">
+
+        <div class="stat">
+
+            <strong>ONLINE</strong>
+
+            <span>
+                Frontend
+            </span>
+
         </div>
 
-        <div class="logo-version">
-            WORKSPACE v2.0
+
+        <div class="stat">
+
+            <strong id="dashboardApi">
+                CHECKING
+            </strong>
+
+            <span>
+                Backend API
+            </span>
+
         </div>
 
-        <nav class="nav">
 
-            <button class="nav-button active"
-                    data-page="dashboard">
-                Dashboard
-            </button>
+        <div class="stat">
 
-            <button class="nav-button"
-                    data-page="games">
-                Games Arcade
-            </button>
+            <strong>2.1.0</strong>
 
-            <button class="nav-button"
-                    data-page="media">
-                Media Processor
-            </button>
+            <span>
+                Workspace Version
+            </span>
 
-            <button class="nav-button"
-                    data-page="docs">
-                How-To / Docs
-            </button>
-
-            <button class="nav-button"
-                    data-page="analytics">
-                Analytics
-            </button>
-
-            <button class="nav-button"
-                    data-page="settings">
-                Settings
-            </button>
-
-        </nav>
-
-        <div class="sidebar-bottom">
-            SPITz-X Workspace<br>
-            Static Frontend<br>
-            GitHub Pages Ready
         </div>
 
-    </aside>
+    </div>
 
 
-    <!-- MAIN -->
+    <div class="card">
 
-    <main class="main">
+        <h3>SPITz-X</h3>
 
+        <p>
+            A modular browser workspace with games,
+            media tools, documentation, analytics,
+            and configurable backend services.
+        </p>
 
-        <!-- =================================================
-             DASHBOARD
-        ================================================= -->
+    </div>
 
-        <section id="dashboard"
-                 class="page active">
+</section>
 
-            <h1>
-                System Dashboard
-            </h1>
 
-            <p class="subtitle">
-                Welcome to SPITz-X. Your deployment and project
-                workspace.
-            </p>
+<!-- =====================================================
+     GAMES
+===================================================== -->
 
+<section
+    class="page"
+    id="page-games"
+>
 
-            <div class="stats">
+    <div class="page-title">
 
-                <div class="stat">
-                    <div class="stat-label">
-                        WORKSPACE
-                    </div>
+        <h2>Games Arcade</h2>
 
-                    <div class="stat-value">
-                        SPITz-X
-                    </div>
-                </div>
+        <p>
+            Browser games available through SPITz-X.
+        </p>
 
-                <div class="stat">
-                    <div class="stat-label">
-                        FRONTEND
-                    </div>
+    </div>
 
-                    <div class="stat-value">
-                        ONLINE
-                    </div>
-                </div>
 
-                <div class="stat">
-                    <div class="stat-label">
-                        VERSION
-                    </div>
+    <div class="card">
 
-                    <div class="stat-value">
-                        2.0
-                    </div>
-                </div>
+        <h3>2048</h3>
 
-                <div class="stat">
-                    <div class="stat-label">
-                        DEPLOYMENT
-                    </div>
+        <p>
+            Launch the included 2048 game.
+        </p>
 
-                    <div class="stat-value">
-                        STATIC
-                    </div>
-                </div>
+        <button
+            class="action"
+            onclick="launchGame()"
+        >
+            Launch 2048
+        </button>
 
-            </div>
+    </div>
 
 
-            <div class="grid">
+    <div id="gameContainer"></div>
 
-                <div class="panel">
+</section>
 
-                    <h3>
-                        <span class="dot"></span>
-                        System Status
-                    </h3>
 
-                    <p>
-                        SPITz-X frontend is running locally in
-                        the browser.
-                    </p>
+<!-- =====================================================
+     MEDIA
+===================================================== -->
 
-                    <div id="backend-dashboard-status"
-                         class="status">
-                        Backend:
-                        <strong>Not configured</strong>
-                    </div>
+<section
+    class="page"
+    id="page-media"
+>
 
-                </div>
+    <div class="page-title">
 
+        <h2>Media Processor</h2>
 
-                <div class="panel">
+        <p>
+            Analyze YouTube metadata or process authorized
+            video files through your SPITz-X backend.
+        </p>
 
-                    <h3>
-                        What's New
-                    </h3>
+    </div>
 
-                    <p>
-                        SPITz-X has been redesigned around a
-                        modular workspace system.
-                    </p>
 
-                    <p>
-                        Games, media processing, deployment
-                        documentation, analytics and settings
-                        are now separated into their own tools.
-                    </p>
+    <!-- YOUTUBE ANALYZER -->
 
-                </div>
+    <div class="card">
 
+        <h3>YouTube Analyzer</h3>
 
-                <div class="panel">
+        <p>
+            Enter a YouTube video URL to retrieve basic
+            public metadata. SPITz-X does not download
+            the YouTube video through this analyzer.
+        </p>
 
-                    <h3>
-                        Quick Start
-                    </h3>
 
-                    <button class="btn"
-                            onclick="openPage('docs')">
-                        Open Deployment Guide
-                    </button>
+        <div class="url-row">
 
-                    <button class="btn secondary"
-                            onclick="openPage('games')">
-                        Open Games
-                    </button>
-
-                    <button class="btn secondary"
-                            onclick="openPage('media')">
-                        Open Media Processor
-                    </button>
-
-                </div>
-
-
-                <div class="panel">
-
-                    <h3>
-                        Repository Structure
-                    </h3>
-
-                    <div class="code">/
-├── index.html
-├── spitz-app.html
-├── 404.html
-│
-├── css/
-│   ├── portal.css
-│   └── spitz-dark.css
-│
-├── js/
-│   ├── cloak.js
-│   ├── loader.js
-│   └── snow.js
-│
-└── Games/
-    └── SpaceShooter Hoe/
-        └── 2048-master/
-            └── 2048-master/</div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             GAMES
-        ================================================= -->
-
-        <section id="games"
-                 class="page">
-
-            <h1>
-                Games Arcade
-            </h1>
-
-            <p class="subtitle">
-                Launch HTML5 games stored inside your SPITz-X
-                repository.
-            </p>
-
-
-            <div class="grid">
-
-                <div class="panel game-card">
-
-                    <h3>
-                        2048
-                    </h3>
-
-                    <p>
-                        Classic HTML5 2048 game.
-                    </p>
-
-                    <div class="game-meta">
-                        Location:<br>
-                        Games/SpaceShooter Hoe/2048-master/2048-master/
-                    </div>
-
-                    <button class="btn"
-                            onclick="launchGame(
-                            'Games/SpaceShooter%20Hoe/2048-master/2048-master/index.html',
-                            '2048'
-                            )">
-                        Launch Game
-                    </button>
-
-                </div>
-
-
-                <div class="panel">
-
-                    <h3>
-                        Adding A Game
-                    </h3>
-
-                    <p>
-                        Put an HTML5 game inside your Games
-                        directory and add its index.html path
-                        to the game launcher.
-                    </p>
-
-                    <button class="btn secondary"
-                            onclick="openPage('docs')">
-                        Learn How
-                    </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             MEDIA PROCESSOR
-        ================================================= -->
-
-        <section id="media"
-                 class="page">
-
-            <h1>
-                Media Processor
-            </h1>
-
-            <p class="subtitle">
-                Analyze and process authorized video URLs
-                through your own backend.
-            </p>
-
-
-            <div class="panel">
-
-                <h3>
-                    Video Input
-                </h3>
-
-                <p>
-                    Enter a supported video URL. YouTube watch
-                    URLs are treated as processing input rather
-                    than embedded as a YouTube player.
-                </p>
-
-                <div class="media-row">
-
-                    <input
-                        id="media-url"
-                        class="input"
-                        placeholder="https://www.youtube.com/watch?v=..."
-                    >
-
-                    <button class="btn"
-                            onclick="analyzeMedia()">
-                        Analyze
-                    </button>
-
-                </div>
-
-
-                <div id="media-status"
-                     class="status">
-
-                    Waiting for a URL...
-
-                </div>
-
-
-                <div id="media-info"
-                     class="media-info">
-
-                    <div class="info-grid">
-
-                        <div class="info-box">
-
-                            <div class="info-title">
-                                TYPE
-                            </div>
-
-                            <div id="media-type"
-                                 class="info-value">
-                                —
-                            </div>
-
-                        </div>
-
-
-                        <div class="info-box">
-
-                            <div class="info-title">
-                                VIDEO ID
-                            </div>
-
-                            <div id="media-id"
-                                 class="info-value">
-                                —
-                            </div>
-
-                        </div>
-
-
-                        <div class="info-box">
-
-                            <div class="info-title">
-                                STATUS
-                            </div>
-
-                            <div id="media-ready"
-                                 class="info-value">
-                                —
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="output-buttons">
-
-                        <button class="btn"
-                                onclick="requestPlayback()">
-                            Video Playback
-                        </button>
-
-                        <button class="btn"
-                                onclick="requestMP4()">
-                            Process MP4
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div id="video-shell"
-                     class="video-shell">
-
-                    <video id="video-player"
-                           controls
-                           playsinline>
-                    </video>
-
-                </div>
-
-            </div>
-
-
-            <div class="panel"
-                 style="margin-top:20px;">
-
-                <h3>
-                    Backend Connection
-                </h3>
-
-                <p>
-                    GitHub Pages cannot perform server-side
-                    media extraction or video conversion.
-                    SPITz-X therefore connects to a backend
-                    that you control.
-                </p>
-
-                <label class="label">
-                    Media API Endpoint
-                </label>
-
-                <input
-                    id="api-endpoint"
-                    class="input"
-                    placeholder="https://your-server.example/api"
+            <input
+                id="youtubeUrl"
+                type="url"
+                placeholder="https://www.youtube.com/watch?v=..."
+            >
+
+            <button
+                class="action"
+                id="analyzeButton"
+                onclick="analyzeYouTube()"
+            >
+                Analyze
+            </button>
+
+        </div>
+
+
+        <div
+            id="youtubeStatus"
+            class="status"
+        >
+            Ready.
+        </div>
+
+
+        <div
+            id="videoInfo"
+            class="video-info"
+        >
+
+            <img
+                id="videoThumbnail"
+                alt="Video thumbnail"
+            >
+
+            <div>
+
+                <div
+                    id="videoTitle"
+                    class="info-title"
                 >
+                    —
+                </div>
 
-                <button class="btn"
-                        onclick="saveAPI()">
-                    Save API Endpoint
-                </button>
+                <div
+                    id="videoChannel"
+                    class="info-muted"
+                >
+                    —
+                </div>
 
-                <div class="status">
-                    Only process media that you own or have
-                    permission to process.
+                <div
+                    id="videoId"
+                    class="info-muted"
+                >
+                    —
                 </div>
 
             </div>
-
-
-            <div class="panel"
-                 style="margin-top:20px;">
-
-                <h3>
-                    Expected API
-                </h3>
-
-                <p>
-                    Your backend can expose endpoints such as:
-                </p>
-
-                <div class="code">POST /analyze
-
-{
-    "url": "AUTHORIZED_VIDEO_URL"
-}
-
-
-POST /playback
-
-{
-    "url": "AUTHORIZED_VIDEO_URL"
-}
-
-
-POST /convert
-
-{
-    "url": "AUTHORIZED_VIDEO_URL",
-    "format": "mp4"
-}</div>
-
-                <p class="subtitle">
-                    The frontend does not pretend these endpoints
-                    exist until you configure your own backend.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             DOCUMENTATION
-        ================================================= -->
-
-        <section id="docs"
-                 class="page">
-
-            <h1>
-                How-To / Documentation
-            </h1>
-
-            <p class="subtitle">
-                Build, deploy and customize your own SPITz-X
-                installation.
-            </p>
-
-
-            <div class="grid">
-
-                <div class="panel doc-card"
-                     onclick="showDoc('github')">
-
-                    <h3>
-                        GitHub Pages
-                    </h3>
-
-                    <p>
-                        Host the SPITz-X frontend directly from
-                        a GitHub repository.
-                    </p>
-
-                </div>
-
-
-                <div class="panel doc-card"
-                     onclick="showDoc('apps-script')">
-
-                    <h3>
-                        Google Apps Script
-                    </h3>
-
-                    <p>
-                        Use Apps Script as a lightweight backend
-                        or API layer.
-                    </p>
-
-                </div>
-
-
-                <div class="panel doc-card"
-                     onclick="showDoc('custom')">
-
-                    <h3>
-                        Custom Deployment
-                    </h3>
-
-                    <p>
-                        Create your own SPITz-X deployment and
-                        customize the interface.
-                    </p>
-
-                </div>
-
-
-                <div class="panel doc-card"
-                     onclick="showDoc('components')">
-
-                    <h3>
-                        Components
-                    </h3>
-
-                    <p>
-                        Learn how to add pages, buttons, panels
-                        and tools.
-                    </p>
-
-                </div>
-
-
-                <div class="panel doc-card"
-                     onclick="showDoc('games-doc')">
-
-                    <h3>
-                        Games
-                    </h3>
-
-                    <p>
-                        Add HTML5 games to your SPITz-X arcade.
-                    </p>
-
-                </div>
-
-
-                <div class="panel doc-card"
-                     onclick="showDoc('updates')">
-
-                    <h3>
-                        Updates
-                    </h3>
-
-                    <p>
-                        Configure version checking and release
-                        information.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- DOC CONTENT -->
-
-            <div id="doc-github"
-                 class="panel doc-content">
-
-                <h2>
-                    GitHub Pages
-                </h2>
-
-                <p>
-                    GitHub Pages is the easiest way to host the
-                    SPITz-X frontend.
-                </p>
-
-                <ol>
-                    <li>Create a GitHub repository.</li>
-                    <li>Upload the SPITz-X files.</li>
-                    <li>Open repository Settings.</li>
-                    <li>Open Pages.</li>
-                    <li>Select your branch.</li>
-                    <li>Save the deployment.</li>
-                </ol>
-
-                <p>
-                    Your HTML, CSS and JavaScript can then be
-                    served as a static website.
-                </p>
-
-            </div>
-
-
-            <div id="doc-apps-script"
-                 class="panel doc-content">
-
-                <h2>
-                    Google Apps Script
-                </h2>
-
-                <p>
-                    Google Apps Script can be used when your
-                    deployment needs server-side functionality.
-                </p>
-
-                <div class="code">function doGet() {
-    return ContentService
-        .createTextOutput("SPITz-X API Online");
-}</div>
-
-                <p>
-                    Deploy the Apps Script project as a web
-                    application, then place its URL into your
-                    SPITz-X API settings.
-                </p>
-
-            </div>
-
-
-            <div id="doc-custom"
-                 class="panel doc-content">
-
-                <h2>
-                    Custom SPITz-X Deployment
-                </h2>
-
-                <p>
-                    A custom deployment can use the same
-                    interface while changing the content,
-                    games, APIs and documentation.
-                </p>
-
-                <div class="code">my-spitz-site/
-│
-├── index.html
-├── spitz-app.html
-│
-├── css/
-├── js/
-├── Games/
-└── api/</div>
-
-                <p>
-                    Keep the application modular so individual
-                    sections can be replaced without rebuilding
-                    the entire site.
-                </p>
-
-            </div>
-
-
-            <div id="doc-components"
-                 class="panel doc-content">
-
-                <h2>
-                    Components
-                </h2>
-
-                <p>
-                    SPITz-X uses reusable interface patterns:
-                </p>
-
-                <ul>
-                    <li>Panels</li>
-                    <li>Navigation buttons</li>
-                    <li>Status indicators</li>
-                    <li>Game cards</li>
-                    <li>Media processors</li>
-                    <li>Documentation cards</li>
-                </ul>
-
-                <p>
-                    Copy an existing component's HTML and
-                    modify its content rather than rebuilding
-                    the styling from scratch.
-                </p>
-
-            </div>
-
-
-            <div id="doc-games-doc"
-                 class="panel doc-content">
-
-                <h2>
-                    Adding Games
-                </h2>
-
-                <p>
-                    Store an HTML5 game inside the Games
-                    directory.
-                </p>
-
-                <div class="code">Games/
-└── MyGame/
-    └── index.html</div>
-
-                <p>
-                    Then add a game card pointing to that
-                    index.html file.
-                </p>
-
-            </div>
-
-
-            <div id="doc-updates"
-                 class="panel doc-content">
-
-                <h2>
-                    Updates
-                </h2>
-
-                <p>
-                    SPITz-X can use a version endpoint or
-                    GitHub release information to determine
-                    whether a newer version exists.
-                </p>
-
-                <p>
-                    Configure your repository information in
-                    Settings, then use the Analytics page to
-                    check the deployment status.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             ANALYTICS
-        ================================================= -->
-
-        <section id="analytics"
-                 class="page">
-
-            <h1>
-                Analytics & Updates
-            </h1>
-
-            <p class="subtitle">
-                Monitor your deployment and check for updates.
-            </p>
-
-
-            <div class="grid">
-
-                <div class="panel">
-
-                    <h3>
-                        Deployment
-                    </h3>
-
-                    <p>
-                        Frontend status:
-                        <strong id="frontend-status">
-                            ONLINE
-                        </strong>
-                    </p>
-
-                    <p>
-                        Storage:
-                        <strong>
-                            Local Browser
-                        </strong>
-                    </p>
-
-                    <p>
-                        API:
-                        <strong id="analytics-api">
-                            NOT CONFIGURED
-                        </strong>
-                    </p>
-
-                </div>
-
-
-                <div class="panel">
-
-                    <h3>
-                        Version
-                    </h3>
-
-                    <p>
-                        Current:
-                        <strong>
-                            SPITz-X 2.0
-                        </strong>
-                    </p>
-
-                    <p id="update-result">
-                        No update check performed.
-                    </p>
-
-                    <button class="btn"
-                            onclick="checkUpdates()">
-                        Check For Updates
-                    </button>
-
-                </div>
-
-
-                <div class="panel">
-
-                    <h3>
-                        Local Statistics
-                    </h3>
-
-                    <p>
-                        Sessions:
-                        <strong id="session-count">
-                            0
-                        </strong>
-                    </p>
-
-                    <p>
-                        Pages opened:
-                        <strong id="page-count">
-                            0
-                        </strong>
-                    </p>
-
-                    <p>
-                        Games launched:
-                        <strong id="game-count">
-                            0
-                        </strong>
-                    </p>
-
-                </div>
-
-
-                <div class="panel">
-
-                    <h3>
-                        Privacy
-                    </h3>
-
-                    <p>
-                        The built-in counters are stored locally
-                        in your browser.
-                    </p>
-
-                    <p>
-                        No analytics service is contacted by
-                        default.
-                    </p>
-
-                    <button class="btn danger"
-                            onclick="resetStats()">
-                        Reset Statistics
-                    </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             SETTINGS
-        ================================================= -->
-
-        <section id="settings"
-                 class="page">
-
-            <h1>
-                Settings
-            </h1>
-
-            <p class="subtitle">
-                Configure your SPITz-X workspace.
-            </p>
-
-
-            <div class="grid">
-
-                <div class="panel">
-
-                    <h3>
-                        Browser Title
-                    </h3>
-
-                    <label class="label">
-                        Page Title
-                    </label>
-
-                    <input
-                        id="page-title"
-                        class="input"
-                        placeholder="SPITz-X Workspace"
-                    >
-
-                    <button class="btn"
-                            onclick="saveTitle()">
-                        Save Title
-                    </button>
-
-                </div>
-
-
-                <div class="panel">
-
-                    <h3>
-                        Accent
-                    </h3>
-
-                    <label class="label">
-                        Accent Color
-                    </label>
-
-                    <input
-                        id="accent-color"
-                        type="color"
-                        value="#a371f7"
-                        style="
-                            width:100%;
-                            height:45px;
-                            background:#09070e;
-                            border:1px solid #282238;
-                            border-radius:6px;
-                            cursor:pointer;
-                        "
-                    >
-
-                    <button class="btn"
-                            onclick="saveAccent()">
-                        Save Accent
-                    </button>
-
-                </div>
-
-
-                <div class="panel">
-
-                    <h3>
-                        Repository
-                    </h3>
-
-                    <label class="label">
-                        GitHub Repository URL
-                    </label>
-
-                    <input
-                        id="github-repo"
-                        class="input"
-                        placeholder="https://github.com/user/repository"
-                    >
-
-                    <button class="btn"
-                            onclick="saveRepository()">
-                        Save Repository
-                    </button>
-
-                </div>
-
-
-                <div class="panel">
-
-                    <h3>
-                        Workspace Data
-                    </h3>
-
-                    <p>
-                        Settings and local statistics are stored
-                        using your browser's localStorage.
-                    </p>
-
-                    <button class="btn danger"
-                            onclick="resetSettings()">
-                        Reset Settings
-                    </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-</div>
-
-
-<!-- =====================================================
-     GAME OVERLAY
-===================================================== -->
-
-<div id="game-overlay">
-
-    <div class="game-toolbar">
-
-        <div class="game-toolbar-title"
-             id="game-title">
-            SPITz-X Game
-        </div>
-
-        <div class="game-toolbar-buttons">
-
-            <button class="btn secondary"
-                    onclick="fullscreenGame()">
-                Fullscreen
-            </button>
-
-            <button class="btn danger"
-                    onclick="closeGame()">
-                Close
-            </button>
 
         </div>
 
     </div>
 
-    <iframe
-        id="game-frame"
-        allowfullscreen>
-    </iframe>
+
+    <!-- UPLOAD PROCESSOR -->
+
+    <div class="card">
+
+        <h3>Local Video Processor</h3>
+
+        <p>
+            Upload a video file that you own or have
+            permission to process. The server converts
+            it to MP4 and provides a temporary result.
+        </p>
+
+
+        <div
+            id="uploadZone"
+            class="upload-zone"
+        >
+
+            <input
+                id="videoFile"
+                type="file"
+                accept="video/mp4,video/webm,video/quicktime,video/x-matroska,video/x-msvideo"
+                hidden
+            >
+
+            <button
+                class="action"
+                onclick="document.getElementById('videoFile').click()"
+            >
+                Choose Video File
+            </button>
+
+
+            <div
+                id="fileName"
+                class="file-name"
+            >
+                No file selected.
+            </div>
+
+        </div>
+
+
+        <div class="processing-buttons">
+
+            <button
+                class="action"
+                id="processButton"
+                onclick="processVideo('process')"
+            >
+                Process Video
+            </button>
+
+
+            <button
+                class="action"
+                id="convertButton"
+                onclick="processVideo('convert')"
+            >
+                Convert to MP4
+            </button>
+
+        </div>
+
+
+        <div
+            id="processStatus"
+            class="status"
+        >
+            Ready for a video file.
+        </div>
+
+
+        <div
+            id="result"
+            class="result"
+        >
+
+            <video
+                id="resultVideo"
+                controls
+                preload="metadata"
+            ></video>
+
+
+            <div class="result-buttons">
+
+                <a
+                    id="playResult"
+                    class="action"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    Open Result
+                </a>
+
+
+                <a
+                    id="downloadResult"
+                    class="action"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    Download MP4
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONNECTION -->
+
+    <div class="card">
+
+        <h3>Backend Connection</h3>
+
+        <p>
+            SPITz-X uses your Render backend for
+            server-side video processing.
+        </p>
+
+
+        <div class="setting-row">
+
+            <label>
+                Media API Endpoint
+            </label>
+
+            <input
+                id="apiEndpoint"
+                type="url"
+                value="https://spitz-x-api.onrender.com"
+            >
+
+        </div>
+
+
+        <button
+            class="action"
+            onclick="saveEndpoint()"
+        >
+            Save API Endpoint
+        </button>
+
+
+        <div
+            id="apiStatus"
+            class="status"
+        >
+            Backend endpoint configured.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DOCS
+===================================================== -->
+
+<section
+    class="page"
+    id="page-docs"
+>
+
+    <div class="page-title">
+
+        <h2>How-To / Docs</h2>
+
+        <p>
+            SPITz-X workspace documentation.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>Media Processor</h3>
+
+        <p>
+            Use YouTube Analyzer for public metadata.
+            For actual video processing, upload a video
+            file you own or are authorized to process.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>Backend</h3>
+
+        <p>
+            The SPITz-X frontend is hosted separately
+            from the Render API. The API handles
+            server-side FFmpeg processing.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>Temporary Files</h3>
+
+        <p>
+            Processed media is temporary and automatically
+            expires. This keeps the service from becoming
+            a permanent file-storage system.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ANALYTICS
+===================================================== -->
+
+<section
+    class="page"
+    id="page-analytics"
+>
+
+    <div class="page-title">
+
+        <h2>Analytics</h2>
+
+        <p>
+            Local SPITz-X usage statistics.
+        </p>
+
+    </div>
+
+
+    <div class="grid">
+
+        <div class="stat">
+
+            <strong id="analyzeCount">
+                0
+            </strong>
+
+            <span>
+                YouTube Analyses
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            <strong id="processCount">
+                0
+            </strong>
+
+            <span>
+                Processed Videos
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            <strong id="convertCount">
+                0
+            </strong>
+
+            <span>
+                MP4 Conversions
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>Privacy</h3>
+
+        <p>
+            These counters are stored locally in this
+            browser using localStorage.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SETTINGS
+===================================================== -->
+
+<section
+    class="page"
+    id="page-settings"
+>
+
+    <div class="page-title">
+
+        <h2>Settings</h2>
+
+        <p>
+            Configure your SPITz-X workspace.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>API Settings</h3>
+
+
+        <div class="setting-row">
+
+            <label>
+                Backend Endpoint
+            </label>
+
+            <input
+                id="settingsEndpoint"
+                type="url"
+                value="https://spitz-x-api.onrender.com"
+            >
+
+        </div>
+
+
+        <button
+            class="action"
+            onclick="saveSettings()"
+        >
+            Save Settings
+        </button>
+
+
+        <div
+            id="settingsStatus"
+            class="status"
+        >
+            Settings ready.
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
 
 </div>
 
 
 <script>
-/* =====================================================
-   SPITz-X APPLICATION
-===================================================== */
 
-const SPITZ_VERSION = "2.0";
+/* =========================================================
+   STATE
+========================================================= */
 
-const state = {
-    sessions: Number(localStorage.getItem("spitz_sessions") || 0),
-    pages: Number(localStorage.getItem("spitz_pages") || 0),
-    games: Number(localStorage.getItem("spitz_games") || 0)
-};
+const DEFAULT_API =
+    "https://spitz-x-api.onrender.com";
 
 
-/* =====================================================
-   INITIALIZATION
-===================================================== */
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    state.sessions++;
-
-    saveStats();
-
-    loadSettings();
-
-    updateStats();
-
-    setupNavigation();
-
-    setTimeout(() => {
-
-        const loading =
-            document.getElementById("loading-screen");
-
-        const app =
-            document.getElementById("app");
-
-        loading.style.opacity = "0";
-
-        setTimeout(() => {
-
-            loading.style.display = "none";
-
-            app.classList.add("active");
-
-        }, 500);
-
-    }, 1900);
-
-    startSnow();
-
-});
+let API =
+    localStorage.getItem(
+        "spitz_api"
+    ) ||
+    DEFAULT_API;
 
 
-/* =====================================================
+/* =========================================================
    NAVIGATION
-===================================================== */
+========================================================= */
 
-function setupNavigation() {
+document
+    .querySelectorAll(".nav-btn")
+    .forEach(button => {
 
-    document
-        .querySelectorAll(".nav-button")
-        .forEach(button => {
+        button.addEventListener(
+            "click",
+            () => {
 
-            button.addEventListener("click", () => {
-
-                openPage(button.dataset.page);
-
-            });
-
-        });
-
-}
+                const page =
+                    button.dataset.page;
 
 
-function openPage(page) {
+                document
+                    .querySelectorAll(".nav-btn")
+                    .forEach(btn => {
 
-    document
-        .querySelectorAll(".page")
-        .forEach(section => {
+                        btn.classList.remove(
+                            "active"
+                        );
 
-            section.classList.remove("active");
-
-        });
+                    });
 
 
-    document
-        .querySelectorAll(".nav-button")
-        .forEach(button => {
+                document
+                    .querySelectorAll(".page")
+                    .forEach(section => {
 
-            button.classList.remove("active");
+                        section.classList.remove(
+                            "active"
+                        );
 
-            if (button.dataset.page === page) {
-                button.classList.add("active");
+                    });
+
+
+                button.classList.add(
+                    "active"
+                );
+
+
+                document
+                    .getElementById(
+                        `page-${page}`
+                    )
+                    .classList.add(
+                        "active"
+                    );
+
+
+                if (
+                    page === "analytics"
+                ) {
+
+                    updateAnalytics();
+
+                }
+
             }
-
-        });
-
-
-    const target =
-        document.getElementById(page);
-
-    if (!target) {
-        return;
-    }
-
-    target.classList.add("active");
-
-    state.pages++;
-
-    saveStats();
-
-    updateStats();
-
-}
-
-
-/* =====================================================
-   SETTINGS
-===================================================== */
-
-function loadSettings() {
-
-    const title =
-        localStorage.getItem("spitz_title");
-
-    const accent =
-        localStorage.getItem("spitz_accent");
-
-    const repo =
-        localStorage.getItem("spitz_repo");
-
-    if (title) {
-
-        document.title = title;
-
-        document.getElementById("page-title").value =
-            title;
-
-    } else {
-
-        document.getElementById("page-title").value =
-            "SPITz-X Workspace";
-
-    }
-
-
-    if (accent) {
-
-        document.documentElement.style.setProperty(
-            "--accent",
-            accent
         );
 
-        document.getElementById("accent-color").value =
-            accent;
-
-    }
+    });
 
 
-    if (repo) {
-
-        document.getElementById("github-repo").value =
-            repo;
-
-    }
-
-
-    const api =
-        localStorage.getItem("spitz_api");
-
-    if (api) {
-
-        document.getElementById("api-endpoint").value =
-            api;
-
-        updateAPIStatus(true);
-
-    }
-
-}
-
-
-function saveTitle() {
-
-    const value =
-        document
-            .getElementById("page-title")
-            .value
-            .trim();
-
-    if (!value) {
-        return;
-    }
-
-    localStorage.setItem(
-        "spitz_title",
-        value
-    );
-
-    document.title = value;
-
-    alert("Page title saved.");
-
-}
-
-
-function saveAccent() {
-
-    const value =
-        document.getElementById("accent-color").value;
-
-    localStorage.setItem(
-        "spitz_accent",
-        value
-    );
-
-    document.documentElement.style.setProperty(
-        "--accent",
-        value
-    );
-
-    alert("Accent color saved.");
-
-}
-
-
-function saveRepository() {
-
-    const value =
-        document
-            .getElementById("github-repo")
-            .value
-            .trim();
-
-    localStorage.setItem(
-        "spitz_repo",
-        value
-    );
-
-    alert("Repository saved.");
-
-}
-
-
-function resetSettings() {
-
-    if (!confirm(
-        "Reset all SPITz-X settings?"
-    )) {
-        return;
-    }
-
-    localStorage.removeItem("spitz_title");
-    localStorage.removeItem("spitz_accent");
-    localStorage.removeItem("spitz_repo");
-    localStorage.removeItem("spitz_api");
-
-    location.reload();
-
-}
-
-
-/* =====================================================
+/* =========================================================
    API
-===================================================== */
-
-function saveAPI() {
-
-    const value =
-        document
-            .getElementById("api-endpoint")
-            .value
-            .trim();
-
-    if (!value) {
-
-        localStorage.removeItem("spitz_api");
-
-        updateAPIStatus(false);
-
-        setMediaStatus(
-            "Backend endpoint cleared."
-        );
-
-        return;
-
-    }
-
-    localStorage.setItem(
-        "spitz_api",
-        value.replace(/\/$/, "")
-    );
-
-    updateAPIStatus(true);
-
-    setMediaStatus(
-        "Backend endpoint saved.",
-        "success"
-    );
-
-}
-
+========================================================= */
 
 function getAPI() {
 
-    return localStorage.getItem("spitz_api") || "";
+    return (
+        localStorage.getItem(
+            "spitz_api"
+        ) ||
+        DEFAULT_API
+    )
+    .replace(
+        /\/+$/,
+        ""
+    );
 
 }
 
 
-function updateAPIStatus(configured) {
+function saveEndpoint() {
 
-    const dash =
-        document.getElementById(
-            "backend-dashboard-status"
-        );
+    const value =
+        document
+            .getElementById(
+                "apiEndpoint"
+            )
+            .value
+            .trim()
+            .replace(
+                /\/+$/,
+                ""
+            );
 
-    const analytics =
-        document.getElementById(
-            "analytics-api"
-        );
 
-    if (configured) {
+    if (!value) {
 
-        dash.innerHTML =
-            "Backend: <strong>Configured</strong>";
-
-        dash.className =
-            "status success";
-
-        analytics.textContent =
-            "CONFIGURED";
-
-    } else {
-
-        dash.innerHTML =
-            "Backend: <strong>Not configured</strong>";
-
-        dash.className =
-            "status";
-
-        analytics.textContent =
-            "NOT CONFIGURED";
+        return;
 
     }
 
+
+    localStorage.setItem(
+        "spitz_api",
+        value
+    );
+
+
+    API = value;
+
+
+    document
+        .getElementById(
+            "settingsEndpoint"
+        )
+        .value =
+        value;
+
+
+    document
+        .getElementById(
+            "apiStatus"
+        )
+        .textContent =
+        "Backend endpoint saved.";
+
 }
 
 
-/* =====================================================
-   MEDIA URL DETECTION
-===================================================== */
+function saveSettings() {
 
-function parseVideoURL(value) {
-
-    try {
-
-        const url =
-            new URL(value);
-
-        const host =
-            url.hostname.toLowerCase();
-
-        if (
-            host === "youtube.com" ||
-            host === "www.youtube.com" ||
-            host === "m.youtube.com"
-        ) {
-
-            const id =
-                url.searchParams.get("v");
-
-            if (id) {
-
-                return {
-                    type: "YouTube",
-                    id: id
-                };
-
-            }
-
-        }
+    const value =
+        document
+            .getElementById(
+                "settingsEndpoint"
+            )
+            .value
+            .trim()
+            .replace(
+                /\/+$/,
+                ""
+            );
 
 
-        if (
-            host === "youtu.be"
-        ) {
+    if (!value) {
 
-            const id =
-                url.pathname
-                    .split("/")
-                    .filter(Boolean)[0];
-
-            if (id) {
-
-                return {
-                    type: "YouTube",
-                    id: id
-                };
-
-            }
-
-        }
-
-
-        if (
-            host.includes("youtube.com") &&
-            url.pathname.startsWith("/shorts/")
-        ) {
-
-            const id =
-                url.pathname
-                    .split("/")[2];
-
-            return {
-                type: "YouTube Shorts",
-                id: id
-            };
-
-        }
-
-
-        return {
-            type: "Direct URL",
-            id: "—"
-        };
-
-    } catch {
-
-        return null;
+        return;
 
     }
 
+
+    localStorage.setItem(
+        "spitz_api",
+        value
+    );
+
+
+    API = value;
+
+
+    document
+        .getElementById(
+            "apiEndpoint"
+        )
+        .value =
+        value;
+
+
+    document
+        .getElementById(
+            "settingsStatus"
+        )
+        .textContent =
+        "Settings saved.";
+
 }
 
 
-/* =====================================================
-   MEDIA STATUS
-===================================================== */
+/* =========================================================
+   YOUTUBE ANALYZE
+========================================================= */
 
-function setMediaStatus(
-    message,
-    type = ""
-) {
+async function analyzeYouTube() {
+
+    const input =
+        document
+            .getElementById(
+                "youtubeUrl"
+            );
+
+    const button =
+        document
+            .getElementById(
+                "analyzeButton"
+            );
 
     const status =
-        document.getElementById(
-            "media-status"
-        );
+        document
+            .getElementById(
+                "youtubeStatus"
+            );
 
-    status.textContent =
-        message;
+    const info =
+        document
+            .getElementById(
+                "videoInfo"
+            );
+
+
+    const url =
+        input.value.trim();
+
+
+    if (!url) {
+
+        status.textContent =
+            "Enter a YouTube URL.";
+
+        status.className =
+            "status error";
+
+        return;
+
+    }
+
+
+    button.disabled =
+        true;
+
 
     status.className =
         "status";
 
-    if (type) {
-        status.classList.add(type);
-    }
-
-}
+    status.textContent =
+        "Analyzing YouTube metadata...";
 
 
-/* =====================================================
-   ANALYZE MEDIA
-===================================================== */
-
-async function analyzeMedia() {
-
-    const input =
-        document.getElementById(
-            "media-url"
-        );
-
-    const value =
-        input.value.trim();
-
-    if (!value) {
-
-        setMediaStatus(
-            "Enter a video URL first.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    const parsed =
-        parseVideoURL(value);
-
-    if (!parsed) {
-
-        setMediaStatus(
-            "That doesn't appear to be a valid URL.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "media-info"
-    ).classList.add("active");
-
-
-    document.getElementById(
-        "media-type"
-    ).textContent =
-        parsed.type;
-
-
-    document.getElementById(
-        "media-id"
-    ).textContent =
-        parsed.id;
-
-
-    document.getElementById(
-        "media-ready"
-    ).textContent =
-        getAPI()
-            ? "Backend Ready"
-            : "Frontend Only";
-
-
-    if (!getAPI()) {
-
-        setMediaStatus(
-            parsed.type +
-            " URL detected. Configure your backend to process it.",
-            "success"
-        );
-
-        return;
-
-    }
-
-
-    setMediaStatus(
-        "Sending URL to your configured backend..."
+    info.classList.remove(
+        "show"
     );
 
 
@@ -2304,676 +1837,779 @@ async function analyzeMedia() {
 
         const response =
             await fetch(
-                getAPI() + "/analyze",
+                `${getAPI()}/analyze`,
                 {
-                    method: "POST",
+
+                    method:
+                        "POST",
 
                     headers: {
                         "Content-Type":
                             "application/json"
                     },
 
-                    body: JSON.stringify({
-                        url: value
-                    })
+                    body:
+                        JSON.stringify({
+                            url: url
+                        })
+
                 }
             );
-
-
-        if (!response.ok) {
-            throw new Error(
-                "Backend returned HTTP " +
-                response.status
-            );
-        }
 
 
         const data =
             await response.json();
 
 
-        if (data.title) {
+        if (
+            !response.ok ||
+            !data.success
+        ) {
 
-            document.getElementById(
-                "media-ready"
-            ).textContent =
-                data.title;
-
-        }
-
-
-        setMediaStatus(
-            "Media analysis completed.",
-            "success"
-        );
-
-
-    } catch (error) {
-
-        setMediaStatus(
-            "Backend request failed: " +
-            error.message,
-            "error"
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   PLAYBACK
-===================================================== */
-
-async function requestPlayback() {
-
-    const url =
-        document
-            .getElementById("media-url")
-            .value
-            .trim();
-
-    if (!url) {
-        return;
-    }
-
-
-    if (!getAPI()) {
-
-        setMediaStatus(
-            "Playback requires your media backend. A YouTube iframe is intentionally not used.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    setMediaStatus(
-        "Requesting authorized playback URL..."
-    );
-
-
-    try {
-
-        const response =
-            await fetch(
-                getAPI() + "/playback",
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body: JSON.stringify({
-                        url: url
-                    })
-                }
-            );
-
-
-        if (!response.ok) {
             throw new Error(
-                "Backend returned HTTP " +
-                response.status
+                data.error ||
+                "Analysis failed."
             );
+
         }
 
-
-        const data =
-            await response.json();
-
-
-        if (!data.url) {
-            throw new Error(
-                "Backend did not return a playable URL."
-            );
-        }
-
-
-        const player =
-            document.getElementById(
-                "video-player"
-            );
-
-        player.src =
-            data.url;
 
         document
             .getElementById(
-                "video-shell"
+                "videoThumbnail"
             )
-            .classList.add("active");
+            .src =
+            data.thumbnail ||
+            "";
 
-        player.load();
 
-        setMediaStatus(
-            "Playback source loaded.",
-            "success"
+        document
+            .getElementById(
+                "videoTitle"
+            )
+            .textContent =
+            data.title ||
+            "Unknown title";
+
+
+        document
+            .getElementById(
+                "videoChannel"
+            )
+            .textContent =
+            data.channel ||
+            "Unknown channel";
+
+
+        document
+            .getElementById(
+                "videoId"
+            )
+            .textContent =
+            `Video ID: ${data.id || "unknown"}`;
+
+
+        info.classList.add(
+            "show"
+        );
+
+
+        status.className =
+            "status success";
+
+        status.textContent =
+            "YouTube metadata retrieved.";
+
+
+        increment(
+            "spitz_analyze_count"
         );
 
 
     } catch (error) {
 
-        setMediaStatus(
-            "Playback failed: " +
-            error.message,
-            "error"
-        );
+        status.className =
+            "status error";
+
+        status.textContent =
+            error.message ||
+            "Backend request failed.";
+
+    } finally {
+
+        button.disabled =
+            false;
 
     }
 
 }
 
 
-/* =====================================================
-   MP4
-===================================================== */
+/* =========================================================
+   FILE SELECTION
+========================================================= */
 
-async function requestMP4() {
+document
+    .getElementById(
+        "videoFile"
+    )
+    .addEventListener(
+        "change",
+        updateSelectedFile
+    );
 
-    const url =
+
+function updateSelectedFile() {
+
+    const input =
         document
-            .getElementById("media-url")
-            .value
-            .trim();
+            .getElementById(
+                "videoFile"
+            );
 
-    if (!url) {
+    const output =
+        document
+            .getElementById(
+                "fileName"
+            );
+
+
+    if (
+        !input.files ||
+        !input.files.length
+    ) {
+
+        output.textContent =
+            "No file selected.";
+
         return;
+
     }
 
 
-    if (!getAPI()) {
+    const file =
+        input.files[0];
 
-        setMediaStatus(
-            "MP4 processing requires your media backend.",
-            "error"
+
+    const sizeMB =
+        (
+            file.size /
+            1024 /
+            1024
+        ).toFixed(1);
+
+
+    output.textContent =
+        `${file.name} — ${sizeMB} MB`;
+
+}
+
+
+/* =========================================================
+   DRAG / DROP
+========================================================= */
+
+const uploadZone =
+    document.getElementById(
+        "uploadZone"
+    );
+
+
+uploadZone.addEventListener(
+    "dragover",
+    event => {
+
+        event.preventDefault();
+
+        uploadZone.classList.add(
+            "drag"
         );
 
+    }
+);
+
+
+uploadZone.addEventListener(
+    "dragleave",
+    () => {
+
+        uploadZone.classList.remove(
+            "drag"
+        );
+
+    }
+);
+
+
+uploadZone.addEventListener(
+    "drop",
+    event => {
+
+        event.preventDefault();
+
+        uploadZone.classList.remove(
+            "drag"
+        );
+
+
+        const files =
+            event.dataTransfer.files;
+
+
+        if (
+            !files.length
+        ) {
+
+            return;
+
+        }
+
+
+        const input =
+            document
+                .getElementById(
+                    "videoFile"
+                );
+
+
+        input.files =
+            files;
+
+
+        updateSelectedFile();
+
+    }
+);
+
+
+/* =========================================================
+   PROCESS VIDEO
+========================================================= */
+
+async function processVideo(
+    mode
+) {
+
+    const input =
+        document
+            .getElementById(
+                "videoFile"
+            );
+
+    const status =
+        document
+            .getElementById(
+                "processStatus"
+            );
+
+    const result =
+        document
+            .getElementById(
+                "result"
+            );
+
+
+    if (
+        !input.files ||
+        !input.files.length
+    ) {
+
+        status.className =
+            "status error";
+
+        status.textContent =
+            "Choose a video file first.";
+
         return;
 
     }
 
 
-    setMediaStatus(
-        "Requesting MP4 processing..."
+    const file =
+        input.files[0];
+
+
+    if (
+        file.size >
+        250 * 1024 * 1024
+    ) {
+
+        status.className =
+            "status error";
+
+        status.textContent =
+            "That file is larger than the 250 MB limit.";
+
+        return;
+
+    }
+
+
+    const form =
+        new FormData();
+
+
+    form.append(
+        "video",
+        file
     );
+
+
+    if (
+        mode === "convert"
+    ) {
+
+        form.append(
+            "format",
+            "mp4"
+        );
+
+    }
+
+
+    result.classList.remove(
+        "show"
+    );
+
+
+    status.className =
+        "status";
+
+    status.textContent =
+        mode === "convert"
+            ? "Converting video to MP4..."
+            : "Processing video...";
+
+
+    document
+        .getElementById(
+            "processButton"
+        )
+        .disabled =
+        true;
+
+
+    document
+        .getElementById(
+            "convertButton"
+        )
+        .disabled =
+        true;
 
 
     try {
 
         const response =
             await fetch(
-                getAPI() + "/convert",
+                `${getAPI()}/${mode}`,
                 {
-                    method: "POST",
 
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
+                    method:
+                        "POST",
 
-                    body: JSON.stringify({
-                        url: url,
-                        format: "mp4"
-                    })
+                    body:
+                        form
+
                 }
             );
-
-
-        if (!response.ok) {
-            throw new Error(
-                "Backend returned HTTP " +
-                response.status
-            );
-        }
 
 
         const data =
             await response.json();
 
 
-        if (!data.url) {
+        if (
+            !response.ok ||
+            !data.success
+        ) {
 
             throw new Error(
-                "Backend did not return an MP4 URL."
+                data.error ||
+                "Video processing failed."
             );
 
         }
 
 
-        const link =
-            document.createElement("a");
-
-        link.href =
-            data.url;
-
-        link.target =
-            "_blank";
-
-        link.rel =
-            "noopener noreferrer";
-
-        link.click();
+        const playbackURL =
+            data.playbackUrl;
 
 
-        setMediaStatus(
-            "MP4 processing completed.",
-            "success"
+        const downloadURL =
+            data.downloadUrl;
+
+
+        document
+            .getElementById(
+                "resultVideo"
+            )
+            .src =
+            playbackURL;
+
+
+        document
+            .getElementById(
+                "playResult"
+            )
+            .href =
+            playbackURL;
+
+
+        document
+            .getElementById(
+                "downloadResult"
+            )
+            .href =
+            downloadURL;
+
+
+        result.classList.add(
+            "show"
         );
+
+
+        status.className =
+            "status success";
+
+
+        status.textContent =
+            `Complete. Result expires in approximately ${
+                Math.round(
+                    data.expiresIn / 60
+                )
+            } minutes.`;
+
+
+        if (
+            mode === "convert"
+        ) {
+
+            increment(
+                "spitz_convert_count"
+            );
+
+        } else {
+
+            increment(
+                "spitz_process_count"
+            );
+
+        }
 
 
     } catch (error) {
 
-        setMediaStatus(
-            "MP4 processing failed: " +
-            error.message,
-            "error"
-        );
+        status.className =
+            "status error";
+
+        status.textContent =
+            error.message ||
+            "Backend request failed.";
+
+    } finally {
+
+        document
+            .getElementById(
+                "processButton"
+            )
+            .disabled =
+            false;
+
+
+        document
+            .getElementById(
+                "convertButton"
+            )
+            .disabled =
+            false;
 
     }
 
 }
 
 
-/* =====================================================
-   GAMES
-===================================================== */
+/* =========================================================
+   ANALYTICS
+========================================================= */
 
-function launchGame(
-    url,
-    name
+function increment(
+    key
 ) {
 
-    const overlay =
-        document.getElementById(
-            "game-overlay"
-        );
-
-    const frame =
-        document.getElementById(
-            "game-frame"
-        );
+    const value =
+        Number(
+            localStorage.getItem(
+                key
+            ) ||
+            0
+        ) + 1;
 
 
-    document.getElementById(
-        "game-title"
-    ).textContent =
-        "SPITz-X // " + name;
-
-
-    frame.src =
-        url;
-
-
-    overlay.classList.add(
-        "active"
+    localStorage.setItem(
+        key,
+        value
     );
 
 
-    state.games++;
-
-    saveStats();
-
-    updateStats();
+    updateAnalytics();
 
 }
 
 
-function closeGame() {
-
-    const frame =
-        document.getElementById(
-            "game-frame"
-        );
-
-    frame.src = "";
+function updateAnalytics() {
 
     document
         .getElementById(
-            "game-overlay"
+            "analyzeCount"
         )
-        .classList.remove("active");
+        .textContent =
+        localStorage.getItem(
+            "spitz_analyze_count"
+        ) ||
+        0;
 
-}
-
-
-function fullscreenGame() {
-
-    const frame =
-        document.getElementById(
-            "game-frame"
-        );
-
-    if (frame.requestFullscreen) {
-
-        frame.requestFullscreen();
-
-    }
-
-}
-
-
-/* =====================================================
-   DOCUMENTATION
-===================================================== */
-
-function showDoc(name) {
 
     document
-        .querySelectorAll(".doc-content")
-        .forEach(doc => {
-
-            doc.classList.remove("active");
-
-        });
-
-
-    const target =
-        document.getElementById(
-            "doc-" + name
-        );
-
-    if (target) {
-
-        target.classList.add(
-            "active"
-        );
-
-        target.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-
-    }
-
-}
-
-
-/* =====================================================
-   STATISTICS
-===================================================== */
-
-function saveStats() {
-
-    localStorage.setItem(
-        "spitz_sessions",
-        state.sessions
-    );
-
-    localStorage.setItem(
-        "spitz_pages",
-        state.pages
-    );
-
-    localStorage.setItem(
-        "spitz_games",
-        state.games
-    );
-
-}
-
-
-function updateStats() {
-
-    document.getElementById(
-        "session-count"
-    ).textContent =
-        state.sessions;
-
-
-    document.getElementById(
-        "page-count"
-    ).textContent =
-        state.pages;
-
-
-    document.getElementById(
-        "game-count"
-    ).textContent =
-        state.games;
-
-}
-
-
-function resetStats() {
-
-    state.sessions = 0;
-    state.pages = 0;
-    state.games = 0;
-
-    saveStats();
-
-    updateStats();
-
-}
-
-
-/* =====================================================
-   UPDATE CHECK
-===================================================== */
-
-async function checkUpdates() {
-
-    const repo =
+        .getElementById(
+            "processCount"
+        )
+        .textContent =
         localStorage.getItem(
-            "spitz_repo"
-        );
+            "spitz_process_count"
+        ) ||
+        0;
 
-    const result =
+
+    document
+        .getElementById(
+            "convertCount"
+        )
+        .textContent =
+        localStorage.getItem(
+            "spitz_convert_count"
+        ) ||
+        0;
+
+}
+
+
+/* =========================================================
+   GAME
+========================================================= */
+
+function launchGame() {
+
+    const container =
         document.getElementById(
-            "update-result"
+            "gameContainer"
         );
 
 
-    if (!repo) {
-
-        result.textContent =
-            "Add your GitHub repository URL in Settings first.";
+    if (
+        container.innerHTML
+    ) {
 
         return;
 
     }
 
 
-    const match =
-        repo.match(
-            /github\.com\/([^/]+)\/([^/#]+)/
+    const iframe =
+        document.createElement(
+            "iframe"
         );
 
 
-    if (!match) {
-
-        result.textContent =
-            "Invalid GitHub repository URL.";
-
-        return;
-
-    }
+    iframe.className =
+        "game-frame";
 
 
-    const owner =
-        match[1];
+    /*
+      IMPORTANT:
+      Change this path if your 2048 folder
+      is located somewhere else.
+    */
 
-    const repository =
-        match[2]
-            .replace(".git", "");
+    iframe.src =
+        "Games/2048-master/2048-master/index.html";
 
 
-    result.textContent =
-        "Checking GitHub releases...";
+    iframe.loading =
+        "lazy";
+
+
+    container.appendChild(
+        iframe
+    );
+
+}
+
+
+/* =========================================================
+   API CHECK
+========================================================= */
+
+async function checkAPI() {
+
+    const dashboard =
+        document
+            .getElementById(
+                "dashboardApi"
+            );
 
 
     try {
 
         const response =
             await fetch(
-                "https://api.github.com/repos/" +
-                encodeURIComponent(owner) +
-                "/" +
-                encodeURIComponent(repository) +
-                "/releases/latest"
+                `${getAPI()}/health`,
+                {
+                    cache: "no-store"
+                }
             );
 
 
-        if (!response.ok) {
-
-            throw new Error(
-                "GitHub returned HTTP " +
-                response.status
-            );
-
-        }
-
-
-        const release =
+        const data =
             await response.json();
 
 
-        result.innerHTML =
-            "Latest release: <strong>" +
-            escapeHTML(
-                release.tag_name ||
-                "Unknown"
-            ) +
-            "</strong>";
-
-    } catch (error) {
-
-        result.textContent =
-            "Unable to check releases: " +
-            error.message;
-
-    }
-
-}
-
-
-/* =====================================================
-   SECURITY HELPER
-===================================================== */
-
-function escapeHTML(value) {
-
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-
-}
-
-
-/* =====================================================
-   SNOW
-===================================================== */
-
-function startSnow() {
-
-    const canvas =
-        document.getElementById(
-            "snow"
-        );
-
-    const ctx =
-        canvas.getContext(
-            "2d"
-        );
-
-
-    let width;
-    let height;
-
-    const flakes = [];
-
-
-    function resize() {
-
-        width =
-            canvas.width =
-            window.innerWidth;
-
-        height =
-            canvas.height =
-            window.innerHeight;
-
-    }
-
-
-    function createFlakes() {
-
-        flakes.length = 0;
-
-        for (
-            let i = 0;
-            i < 130;
-            i++
+        if (
+            response.ok &&
+            data.status === "ok"
         ) {
 
-            flakes.push({
+            dashboard.textContent =
+                "ONLINE";
 
-                x:
-                    Math.random() *
-                    width,
+        } else {
 
-                y:
-                    Math.random() *
-                    height,
-
-                r:
-                    Math.random() *
-                    2 +
-                    .5,
-
-                speed:
-                    Math.random() *
-                    1.4 +
-                    .4,
-
-                drift:
-                    Math.random() *
-                    1 -
-                    .5,
-
-                opacity:
-                    Math.random() *
-                    .45 +
-                    .1
-
-            });
+            dashboard.textContent =
+                "ERROR";
 
         }
 
+    } catch {
+
+        dashboard.textContent =
+            "OFFLINE";
+
     }
 
+}
 
-    function animate() {
 
-        ctx.clearRect(
-            0,
-            0,
-            width,
-            height
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+document
+    .getElementById(
+        "apiEndpoint"
+    )
+    .value =
+    getAPI();
+
+
+document
+    .getElementById(
+        "settingsEndpoint"
+    )
+    .value =
+    getAPI();
+
+
+updateAnalytics();
+
+checkAPI();
+
+
+/* =========================================================
+   SNOW
+========================================================= */
+
+const canvas =
+    document.getElementById(
+        "snow"
+    );
+
+const ctx =
+    canvas.getContext(
+        "2d"
+    );
+
+
+let flakes = [];
+
+
+function resizeSnow() {
+
+    canvas.width =
+        window.innerWidth;
+
+    canvas.height =
+        window.innerHeight;
+
+}
+
+
+function createSnow() {
+
+    flakes =
+        Array.from(
+            {
+                length: 120
+            },
+            () => ({
+
+                x:
+                    Math.random() *
+                    canvas.width,
+
+                y:
+                    Math.random() *
+                    canvas.height,
+
+                size:
+                    Math.random() *
+                    2.5 + 1,
+
+                speed:
+                    Math.random() *
+                    1.1 + .25,
+
+                drift:
+                    Math.random() *
+                    .6 - .3
+
+            })
         );
 
+}
 
-        flakes.forEach(flake => {
+
+function drawSnow() {
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    ctx.fillStyle =
+        "rgba(255,255,255,.65)";
+
+
+    flakes.forEach(
+        flake => {
 
             ctx.beginPath();
-
-            ctx.fillStyle =
-                "rgba(255,255,255," +
-                flake.opacity +
-                ")";
 
             ctx.arc(
                 flake.x,
                 flake.y,
-                flake.r,
+                flake.size,
                 0,
                 Math.PI * 2
             );
@@ -2990,61 +2626,66 @@ function startSnow() {
 
             if (
                 flake.y >
-                height
+                canvas.height
             ) {
 
-                flake.y = -5;
-
-                flake.x =
-                    Math.random() *
-                    width;
+                flake.y =
+                    -5;
 
             }
 
 
             if (
                 flake.x >
-                width
+                canvas.width
             ) {
-                flake.x = 0;
+
+                flake.x =
+                    0;
+
             }
+
 
             if (
                 flake.x < 0
             ) {
-                flake.x = width;
+
+                flake.x =
+                    canvas.width;
+
             }
-
-        });
-
-
-        requestAnimationFrame(
-            animate
-        );
-
-    }
-
-
-    resize();
-
-    createFlakes();
-
-    window.addEventListener(
-        "resize",
-        () => {
-
-            resize();
-
-            createFlakes();
 
         }
     );
 
 
-    animate();
+    requestAnimationFrame(
+        drawSnow
+    );
 
 }
+
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        resizeSnow();
+
+        createSnow();
+
+    }
+);
+
+
+resizeSnow();
+
+createSnow();
+
+drawSnow();
+
 </script>
 
 </body>
+
 </html>
