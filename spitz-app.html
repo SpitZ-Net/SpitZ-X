@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SPITz-X App Workspace</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0914'/%3E%3Cpath d='M16 14l12 0 8 13 8-13h12L42 32l14 18H44L36 37l-8 13H16l14-18z' fill='none' stroke='%23a371f7' stroke-width='5' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
 *{box-sizing:border-box}body{margin:0;background:#0b0914;color:#d2d0df;font-family:monospace;overflow:hidden;height:100vh}
@@ -32,7 +31,8 @@
 
 
 .ytai-launch{display:flex;align-items:center;gap:18px;padding:5px 0 15px}
-.ytai-launch-icon{width:58px;height:58px;display:flex;align-items:center;justify-content:center;border-radius:15px;background:#151022;border:1px solid #38265a;color:#a371f7;font-size:25px;box-shadow:0 0 18px rgba(163,113,247,.12)}
+.ytai-launch-icon{width:58px;height:58px;display:flex;align-items:center;justify-content:center;border-radius:15px;background:#151022;border:1px solid #38265a;color:#a371f7;box-shadow:0 0 18px rgba(163,113,247,.12)}
+.ytai-launch-icon svg{width:28px;height:28px}
 .ytai-launch-info h3{margin:5px 0;color:#fff}
 .ytai-launch-info p{margin:0;color:#77718b;line-height:1.6}
 .ytai-launch code{color:#a371f7}
@@ -41,12 +41,12 @@
 /* SPITz-X icon system */
 :root{--spitz-purple:#a371f7}
 .nav-item{display:flex;align-items:center;gap:12px}
-.nav-icon{width:20px;height:20px;font-size:20px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 20px;transition:.25s}
+.nav-icon{width:20px;height:20px;display:block;flex:0 0 20px;transition:.25s}
 .nav-item:hover .nav-icon,.nav-item.active .nav-icon{color:#a371f7;filter:drop-shadow(0 0 5px rgba(163,113,247,.55))}
 .panel h3{display:flex;align-items:center;gap:9px}
-.panel h3 .section-icon{font-size:19px;color:#a371f7}
-.action-btn .button-icon{font-size:17px;vertical-align:-3px;margin-right:7px}
-.status-icon{font-size:18px;vertical-align:-4px}
+.panel h3 .section-icon{width:19px;height:19px;color:#a371f7;flex:0 0 19px}
+.action-btn .button-icon{width:17px;height:17px;vertical-align:-4px;margin-right:7px;display:inline-block}
+.status-icon{width:18px;height:18px;vertical-align:-4px}
 
 </style>
 </head>
@@ -54,25 +54,25 @@
 <div id="loading-screen"><div class="logo-glow">SPITz-X</div><div class="loading-bar-container"><div class="loading-bar"></div></div><div class="loading-text">Initializing workspace...</div></div>
 <div id="main-interface">
 <div class="sidebar"><h2>SPITz-X</h2><div class="version">WORKSPACE v4.0</div>
-<div class="nav-item active" onclick="switchTab('dashboard',this)"><i class="ti ti-layout-dashboard nav-icon"></i><span>Dashboard</span></div>
-<div class="nav-item" onclick="switchTab('games',this)"><i class="ti ti-books nav-icon"></i><span>Library</span></div>
-<div class="nav-item" onclick="switchTab('media',this)"><i class="ti ti-device-tv nav-icon"></i><span>Media Processor</span></div>
-<div class="nav-item" onclick="switchTab('docs',this)"><i class="ti ti-book-2 nav-icon"></i><span>Documentation</span></div>
-<div class="nav-item" onclick="switchTab('settings',this)"><i class="ti ti-settings nav-icon"></i><span>Settings</span></div><div class="sidebar-footer">SPITz-X<br>Tech Group Workspace</div></div>
+<div class="nav-item active" onclick="switchTab('dashboard',this)"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg><span>Dashboard</span></div>
+<div class="nav-item" onclick="switchTab('games',this)"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5a2 2 0 0 1 2-2h4v16H5a2 2 0 0 1-2-2zM9 3h4v16H9zM13 5h4a2 2 0 0 1 2 2v12h-6z"/></svg><span>Library</span></div>
+<div class="nav-item" onclick="switchTab('media',this)"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m8 2 4 3 4-3"/></svg><span>Media Processor</span></div>
+<div class="nav-item" onclick="switchTab('docs',this)"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-2z"/><path d="M4 18a2 2 0 0 0 2 2h13M8 6h7M8 10h7"/></svg><span>Documentation</span></div>
+<div class="nav-item" onclick="switchTab('settings',this)"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="m19.4 15 .1.1a2 2 0 0 1-2.8 2.8l-.1-.1a2 2 0 0 0-3.4 1.4v.2a2 2 0 0 1-4 0v-.2A2 2 0 0 0 5.8 17.8l-.1.1A2 2 0 0 1 2.9 15l.1-.1A2 2 0 0 0 1.6 11.5h-.2a2 2 0 0 1 0-4h.2A2 2 0 0 0 3 4.1L2.9 4A2 2 0 0 1 5.7 1.2l.1.1A2 2 0 0 0 9.2 0h.2a2 2 0 0 1 4 0h.2a2 2 0 0 0 3.4 1.3l.1-.1A2 2 0 0 1 19.9 4l-.1.1a2 2 0 0 0 1.4 3.4h.2a2 2 0 0 1 0 4h-.2a2 2 0 0 0-1.8 3.5Z" transform="translate(1 1) scale(.9)"/></svg><span>Settings</span></div><div class="sidebar-footer">SPITz-X<br>Tech Group Workspace</div></div>
 <div class="main-content">
-<div id="dashboard" class="tab-content active"><h1><i class="ti ti-layout-dashboard section-icon"></i> System Overview</h1><p class="subtitle">A student-friendly workspace for games, media and tech projects.</p><div class="panel-grid"><div class="panel"><h3><i class="ti ti-activity section-icon"></i> Status</h3><p><span class="status-dot"></span>Connection: <strong id="api-status">Checking...</strong></p><p>Environment: <strong>Production</strong></p><p>Workspace: <strong>SPITz-X</strong></p></div><div class="panel"><h3><i class="ti ti-tool section-icon"></i> Available Tools</h3><ul class="feature-list"><li>Video watch-link player</li><li>Authorized MP4 playback</li><li>MP4 download</li><li>Games Arcade</li><li>Persistent settings</li></ul></div></div></div>
-<div id="games" class="tab-content"><h1><i class="ti ti-books section-icon"></i> Library</h1><p class="subtitle">Browse and launch your SPITz-X games and projects.</p><div class="panel"><h3><i class="ti ti-device-gamepad-2 section-icon"></i> Game Library</h3><p>Choose a game or project from your SPITz-X library.</p><button class="action-btn" onclick="launchInstance('Games/2048-master/2048-master/index.html')"><i class="ti ti-device-gamepad-2 button-icon"></i>Launch 2048</button></div></div>
+<div id="dashboard" class="tab-content active"><h1><svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg> System Overview</h1><p class="subtitle">A student-friendly workspace for games, media and tech projects.</p><div class="panel-grid"><div class="panel"><h3><svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg> Status</h3><p><span class="status-dot"></span>Connection: <strong id="api-status">Checking...</strong></p><p>Environment: <strong>Production</strong></p><p>Workspace: <strong>SPITz-X</strong></p></div><div class="panel"><h3><svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14.7 6.3 3-3a4 4 0 0 0-5.4 5.4l-7.8 7.8a2 2 0 1 0 2.8 2.8l7.8-7.8a4 4 0 0 0 5.4-5.4l-3 3z"/></svg> Available Tools</h3><ul class="feature-list"><li>Video watch-link player</li><li>Authorized MP4 playback</li><li>MP4 download</li><li>Games Arcade</li><li>Persistent settings</li></ul></div></div></div>
+<div id="games" class="tab-content"><h1><svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5a2 2 0 0 1 2-2h4v16H5a2 2 0 0 1-2-2zM9 3h4v16H9zM13 5h4a2 2 0 0 1 2 2v12h-6z"/></svg> Library</h1><p class="subtitle">Browse and launch your SPITz-X games and projects.</p><div class="panel"><h3><svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="12" rx="4"/><path d="M8 11v4M6 13h4M16 12h.01M18 14h.01"/></svg> Game Library</h3><p>Choose a game or project from your SPITz-X library.</p><button class="action-btn" onclick="launchInstance('Games/2048-master/2048-master/index.html')"><svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="12" rx="4"/><path d="M8 11v4M6 13h4M16 12h.01M18 14h.01"/></svg>Launch 2048</button></div></div>
 <div id="media" class="tab-content">
-<h1><i class="ti ti-device-tv section-icon"></i> Media Processor</h1>
+<h1><svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m8 2 4 3 4-3"/></svg> Media Processor</h1>
 <p class="subtitle">Open the YT-Ai media workspace normally in a new browser tab.</p>
 
 <div class="panel">
   <div class="ytai-launch">
-    <div class="ytai-launch-icon">▶</div>
+    <div class="ytai-launch-icon"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12s0-4-1-5-2-1-3-1H6C4 6 3 6 2 7s-1 5-1 5 0 4 1 5 2 1 4 1h12c2 0 3 0 4-1s1-5 1-5Z"/><path d="m10 9 5 3-5 3z"/></svg></div>
 
     <div class="ytai-launch-info">
       <div class="ytai-badge">SPITz-X MEDIA</div>
-      <h3><i class="ti ti-brand-youtube section-icon"></i> YT-Ai Converter</h3>
+      <h3><svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12s0-4-1-5-2-1-3-1H6C4 6 3 6 2 7s-1 5-1 5 0 4 1 5 2 1 4 1h12c2 0 3 0 4-1s1-5 1-5Z"/><path d="m10 9 5 3-5 3z"/></svg> YT-Ai Converter</h3>
       <p>
         Open the YT-Ai converter directly in a new browser tab instead of embedding it inside SPITz-X.
       </p>
@@ -94,14 +94,14 @@
 </div>
 
 <div class="panel" style="margin-top:20px">
-  <h3><i class="ti ti-route section-icon"></i> How it works</h3>
+  <h3><svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="5" r="2"/><circle cx="18" cy="19" r="2"/><path d="M8 5h4a4 4 0 0 1 4 4v6a4 4 0 0 0 4 4M6 7v5a4 4 0 0 0 4 4h6"/></svg> How it works</h3>
   <div class="code-box">
     SPITz-X → Launch YT-Ai → YT-Ai workspace
   </div>
 </div>
 </div>
-<div id="docs" class="tab-content"><h1><i class="ti ti-book-2 section-icon"></i> Documentation</h1><p class="subtitle">SPITz-X deployment notes.</p><div class="panel-grid"><div class="panel"><h3><i class="ti ti-brand-github section-icon"></i> GitHub Pages</h3><p>The frontend can be hosted as a static GitHub Pages site.</p><ul class="feature-list"><li>HTML/CSS/JS frontend</li><li>Native playback uses authorized MP4 copies from the SPITz-X API</li><li>Configure API URL in Settings</li></ul></div><div class="panel"><h3><i class="ti ti-api section-icon"></i> Media API</h3><p>The API handles authorized source files and FFmpeg conversion.</p><ul class="feature-list"><li>POST /process</li><li>POST /convert</li><li>POST /admin/youtube-convert (admin)</li><li>GET /library/:videoId</li><li>GET /media/:videoId</li><li>GET /media/:videoId/download</li><li>GET /health</li></ul></div></div></div>
-<div id="settings" class="tab-content"><h1><i class="ti ti-settings section-icon"></i> System Settings</h1><div class="panel-grid"><div class="panel"><h3><i class="ti ti-plug-connected section-icon"></i> API Endpoint</h3><input class="input-box" id="api-endpoint" placeholder="https://spitz-x-api.onrender.com"><button class="action-btn" onclick="saveApi()">Save API Endpoint</button><p class="small">Saved in this browser only.</p></div><div class="panel"><h3><i class="ti ti-browser section-icon"></i> Page Title</h3><input class="input-box" id="tab-title" placeholder="SPITz-X App Workspace"><button class="action-btn" onclick="changeTitle()">Update Title</button></div></div></div>
+<div id="docs" class="tab-content"><h1><svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-2z"/><path d="M4 18a2 2 0 0 0 2 2h13M8 6h7M8 10h7"/></svg> Documentation</h1><p class="subtitle">SPITz-X deployment notes.</p><div class="panel-grid"><div class="panel"><h3><svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4 1-4-2-5-2m10 4v-3.9c0-1 .1-1.4-.5-2.1 1.7-.2 3.5-.8 3.5-4A3.1 3.1 0 0 0 16 8.9 2.8 2.8 0 0 0 16 6s-.9-.3-3 1.1a10.4 10.4 0 0 0-6 0C4.9 5.7 4 6 4 6a2.8 2.8 0 0 0 0 2.9A3.1 3.1 0 0 0 3 11c0 3.2 1.8 3.8 3.5 4-.6.6-.6 1.2-.5 2.1V21"/></svg> GitHub Pages</h3><p>The frontend can be hosted as a static GitHub Pages site.</p><ul class="feature-list"><li>HTML/CSS/JS frontend</li><li>Native playback uses authorized MP4 copies from the SPITz-X API</li><li>Configure API URL in Settings</li></ul></div><div class="panel"><h3><svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="7" cy="7" r="1"/><circle cx="17" cy="12" r="1"/><circle cx="9" cy="17" r="1"/></svg> Media API</h3><p>The API handles authorized source files and FFmpeg conversion.</p><ul class="feature-list"><li>POST /process</li><li>POST /convert</li><li>POST /admin/youtube-convert (admin)</li><li>GET /library/:videoId</li><li>GET /media/:videoId</li><li>GET /media/:videoId/download</li><li>GET /health</li></ul></div></div></div>
+<div id="settings" class="tab-content"><h1><svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="m19.4 15 .1.1a2 2 0 0 1-2.8 2.8l-.1-.1a2 2 0 0 0-3.4 1.4v.2a2 2 0 0 1-4 0v-.2A2 2 0 0 0 5.8 17.8l-.1.1A2 2 0 0 1 2.9 15l.1-.1A2 2 0 0 0 1.6 11.5h-.2a2 2 0 0 1 0-4h.2A2 2 0 0 0 3 4.1L2.9 4A2 2 0 0 1 5.7 1.2l.1.1A2 2 0 0 0 9.2 0h.2a2 2 0 0 1 4 0h.2a2 2 0 0 0 3.4 1.3l.1-.1A2 2 0 0 1 19.9 4l-.1.1a2 2 0 0 0 1.4 3.4h.2a2 2 0 0 1 0 4h-.2a2 2 0 0 0-1.8 3.5Z" transform="translate(1 1) scale(.9)"/></svg> System Settings</h1><div class="panel-grid"><div class="panel"><h3><svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 12-2 2a3 3 0 0 1-4-4l2-2a3 3 0 0 1 4 0M15 12l2-2a3 3 0 0 1 4 4l-2 2a3 3 0 0 1-4 0M8 16l8-8"/></svg> API Endpoint</h3><input class="input-box" id="api-endpoint" placeholder="https://spitz-x-api.onrender.com"><button class="action-btn" onclick="saveApi()">Save API Endpoint</button><p class="small">Saved in this browser only.</p></div><div class="panel"><h3><svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6h.01M10 6h.01"/></svg> Page Title</h3><input class="input-box" id="tab-title" placeholder="SPITz-X App Workspace"><button class="action-btn" onclick="changeTitle()">Update Title</button></div></div></div>
 </div></div>
 <div id="app-overlay" style="display:none;position:fixed;inset:0;background:#0b0914;z-index:1000;flex-direction:column"><div style="padding:15px;background:#110e1b;border-bottom:1px solid #a371f7;display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0;color:#a371f7">SPITz-X Instance Active</h3><button class="action-btn" style="width:auto;margin:0;padding:5px 15px;border-color:#ff5555;color:#ff5555" onclick="closeInstance()">Terminate Instance</button></div><iframe id="app-frame" src="" style="width:100%;height:100%;border:none;flex:1"></iframe></div>
 <script>
