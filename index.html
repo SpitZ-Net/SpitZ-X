@@ -8,23 +8,69 @@
 </head>
 <body>
     <header>
-        <div id="spitz-trigger" class="logo">Student Portal</div>
+        <div id="spitz-trigger" class="logo" title="Click to Launch Workspace">Infinite Campus — Student Portal</div>
         <div class="nav-links">
-            <a href="#">Dashboard</a>
+            <a href="#" class="active">Schedule</a>
             <a href="#">Grades</a>
-            <a href="#">Schedule</a>
+            <a href="#">Attendance</a>
+            <a href="#">More</a>
         </div>
     </header>
     <div class="container">
-        <h2>Today's Schedule</h2>
-        <p>Welcome back, Student. Here are your classes for today.</p>
+        <div class="portal-header">
+            <h2>Class Schedule & Performance</h2>
+            <span class="term-badge">Term 2 (2025-2026)</span>
+        </div>
+        <p class="subtext">Current enrolled periods and live grade calculations.</p>
+        
         <table>
-            <tr><th>Time</th><th>Class</th><th>Room</th></tr>
-            <tr><td>08:00 AM</td><td>Advanced Mathematics</td><td>Room 402</td></tr>
-            <tr><td>09:30 AM</td><td>World History</td><td>Room 115</td></tr>
-            <tr><td>11:00 AM</td><td>Computer Science</td><td>Lab B</td></tr>
+            <thead>
+                <tr>
+                    <th>Period</th>
+                    <th>Time</th>
+                    <th>Course Name</th>
+                    <th>Teacher</th>
+                    <th>Room</th>
+                    <th>Grade / Score</th>
+                </tr>
+            </thead>
+            <tbody id="schedule-body">
+                <!-- Populated via JS to randomize look & feel -->
+            </tbody>
         </table>
     </div>
+
+    <script>
+        const classes = [
+            { period: "1", time: "08:00 AM - 09:20 AM", name: "Advanced Placement Calculus", teacher: "Dr. Harrison", room: "Room 402" },
+            { period: "2", time: "09:30 AM - 10:50 AM", name: "Physics C: Mechanics", teacher: "Mr. Vance", room: "Lab 10B" },
+            { period: "3", time: "11:00 AM - 12:50 PM", name: "American Literature & Comp", teacher: "Ms. Albright", room: "Room 214" },
+            { period: "4", time: "01:30 PM - 02:55 PM", name: "Advanced Software Engineering", teacher: "Mr. Sterling", room: "Tech Lab A" }
+        ];
+
+        const tbody = document.getElementById('schedule-body');
+        
+        classes.forEach(cls => {
+            // Randomize grades between 83% and 99% for a realistic touch
+            const score = Math.floor(Math.random() * (99 - 83 + 1)) + 83;
+            let letter = 'A';
+            if (score < 90 && score >= 87) letter = 'B+';
+            else if (score < 87 && score >= 84) letter = 'B';
+            else if (score < 84) letter = 'B-';
+            else if (score >= 97) letter = 'A+';
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><strong>${cls.period}</strong></td>
+                <td>${cls.time}</td>
+                <td><span class="course-title">${cls.name}</span></td>
+                <td>${cls.teacher}</td>
+                <td>${cls.room}</td>
+                <td><span class="grade-pill">${letter} (${score}%)</span></td>
+            `;
+            tbody.appendChild(row);
+        });
+    </script>
     <script src="js/cloak.js"></script>
 </body>
 </html>
