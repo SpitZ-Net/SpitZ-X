@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SPITz-X Workspace</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23100b1c'/%3E%3Cpath d='M18 16 32 30 46 16M46 48 32 34 18 48M18 16l14 14M46 16 32 30' fill='none' stroke='%23a970ff' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+
+<style>
+:root{
+  --bg:#080711;
+  --bg2:#0d0a17;
+  --panel:#100d1b;
+  --panel2:#141021;
+  --border:#2b2540;
+  --border2:#39304f;
+  --text:#f5f2ff;
+  --muted:#8f89a0;
+  --muted2:#696276;
+  --purple:#a970ff;
+  --purple2:#7f3fe6;
+  --green:#48e27b;
+  --red:#ff6b81;
+  --sidebar:280px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+  background:
+    radial-gradient(circle at 72% 12%,rgba(137,66,255,.09),transparent 28%),
+    radial-gradient(circle at 25% 92%,rgba(103,47,190,.06),transparent 25%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+
+.app{
+  display:flex;width:100vw;height:100vh;
+  background:linear-gradient(180deg,rgba(255,255,255,.01),transparent);
+}
+
+/* background stars */
+.stars{position:fixed;inset:0;pointer-events:none;opacity:.55;z-index:0}
+.star{
+  position:absolute;width:2px;height:2px;border-radius:50%;
+  background:#cdbaff;box-shadow:0 0 8px rgba(169,112,255,.4);
+}
+
+/* sidebar */
+.sidebar{
+  position:relative;z-index:5;width:var(--sidebar);min-width:var(--sidebar);
+  display:flex;flex-direction:column;
+  border-right:1px solid var(--border);
+  background:linear-gradient(180deg,rgba(18,14,29,.97),rgba(10,8,18,.98));
+}
+.brand{
+  height:128px;padding:30px 30px 18px;
+  border-bottom:1px solid rgba(57,48,79,.45);
+}
+.brand-row{display:flex;align-items:center;gap:14px}
+.brand-mark{
+  width:40px;height:40px;display:grid;place-items:center;
+  color:var(--purple);
+  filter:drop-shadow(0 0 9px rgba(169,112,255,.45));
+}
+.brand-mark svg{width:40px;height:40px}
+.brand-name{font-size:21px;font-weight:800;letter-spacing:.13em}
+.brand-version{margin:5px 0 0 54px;color:var(--muted2);font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em}
+
+.nav{padding:18px 12px}
+.nav-label{
+  padding:0 14px 9px;color:#5f596d;font-size:10px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase
+}
+.nav-item{
+  display:flex;align-items:center;gap:14px;
+  min-height:50px;padding:0 14px;margin:4px 0;
+  color:#c9c4d6;border:1px solid transparent;border-radius:9px;
+  transition:.18s ease;
+}
+.nav-item svg{width:21px;height:21px;flex:0 0 21px}
+.nav-item:hover{background:rgba(169,112,255,.07);color:#fff}
+.nav-item.active{
+  color:#fff;background:linear-gradient(90deg,rgba(130,57,226,.25),rgba(169,112,255,.10));
+  border-color:rgba(169,112,255,.2);
+  box-shadow:inset 3px 0 0 var(--purple),0 0 20px rgba(135,68,225,.08);
+}
+.nav-item.active svg{color:var(--purple);filter:drop-shadow(0 0 6px rgba(169,112,255,.55))}
+.tools-divider{height:1px;margin:16px 14px;background:var(--border)}
+.sidebar-spacer{flex:1}
+.sidebar-footer{
+  padding:20px 22px;border-top:1px solid var(--border);
+  color:var(--muted);font-size:12px;line-height:1.6
+}
+.online-row{display:flex;align-items:center;gap:9px;color:var(--green);font-size:11px}
+.online-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px rgba(72,226,123,.6)}
+.sidebar-tech{font-weight:600;color:#dcd7e8}
+
+/* main */
+.main{
+  position:relative;z-index:1;flex:1;min-width:0;overflow:auto;padding:28px 36px 34px;
+}
+.topbar{
+  display:flex;justify-content:flex-end;align-items:center;gap:14px;margin-bottom:28px
+}
+.status-chip,.identity-chip{
+  display:flex;align-items:center;gap:14px;
+  border:1px solid var(--border);background:rgba(19,15,32,.85);
+  box-shadow:0 8px 24px rgba(0,0,0,.18);border-radius:12px;padding:11px 16px;
+}
+.status-chip .divider{width:1px;height:22px;background:var(--border)}
+.status-label{font-size:12px;color:var(--green);font-weight:700}
+.clock{font-size:12px;color:#ddd8e8}
+.identity-mark{
+  width:32px;height:32px;border-radius:10px;display:grid;place-items:center;
+  background:#171127;border:1px solid #382653;color:var(--purple)
+}
+.identity-mark svg{width:22px;height:22px}
+.identity-name{font-size:12px;color:var(--purple);font-weight:800}
+.identity-sub{font-size:11px;color:var(--muted);margin-top:2px}
+
+.view{display:none;animation:in .25s ease}
+.view.active{display:block}
+@keyframes in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+.page-title{font-size:28px;line-height:1.1;margin:0;font-weight:800;letter-spacing:-.03em}
+.page-sub{margin:8px 0 24px;color:var(--muted);font-size:14px}
+
+/* cards */
+.card-grid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-bottom:18px
+}
+.feature-card{
+  background:linear-gradient(180deg,rgba(20,16,33,.94),rgba(14,11,25,.96));
+  border:1px solid var(--border2);border-radius:14px;padding:20px;
+  box-shadow:0 12px 30px rgba(0,0,0,.16);
+  transition:.18s ease;
+}
+.feature-card:hover{transform:translateY(-2px);border-color:#554872;box-shadow:0 15px 36px rgba(0,0,0,.24),0 0 20px rgba(133,68,225,.06)}
+.feature-icon{
+  width:58px;height:58px;border-radius:13px;display:grid;place-items:center;
+  background:linear-gradient(145deg,#5520a0,#8c44e4);
+  color:#fff;box-shadow:0 9px 22px rgba(108,42,204,.35),inset 0 1px rgba(255,255,255,.14);
+  margin-bottom:17px;
+}
+.feature-icon svg{width:28px;height:28px}
+.feature-card h3{margin:0;font-size:16px}
+.feature-card p{margin:7px 0 18px;color:var(--muted);font-size:12px;line-height:1.6;min-height:38px}
+.card-btn{
+  width:100%;height:38px;border-radius:8px;border:1px solid #7d42cd;
+  background:transparent;color:var(--purple);font-size:12px;font-weight:700;
+  transition:.18s;
+}
+.card-btn:hover{background:rgba(169,112,255,.1);box-shadow:0 0 16px rgba(169,112,255,.12)}
+.card-btn svg{width:15px;height:15px;vertical-align:-3px;margin-left:7px}
+
+/* lower panels */
+.lower-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.panel{
+  background:linear-gradient(180deg,rgba(18,14,30,.97),rgba(13,10,22,.98));
+  border:1px solid var(--border2);border-radius:14px;overflow:hidden;
+  box-shadow:0 12px 30px rgba(0,0,0,.16);
+}
+.panel-head{
+  display:flex;align-items:center;gap:12px;padding:18px 20px;
+  border-bottom:1px solid var(--border);font-weight:800;font-size:15px
+}
+.panel-head svg{width:21px;height:21px;color:var(--purple)}
+.panel-body{padding:6px 20px 8px}
+.status-row,.quick-row{
+  min-height:64px;display:flex;align-items:center;gap:14px;
+  border-bottom:1px solid rgba(43,37,64,.75)
+}
+.status-row:last-child,.quick-row:last-child{border-bottom:0}
+.row-icon{
+  width:30px;height:30px;flex:0 0 30px;display:grid;place-items:center;border-radius:9px;
+  background:#1b1530;color:var(--purple);border:1px solid #332849
+}
+.row-icon svg{width:17px;height:17px}
+.row-main{min-width:0;flex:1}
+.row-title{font-size:13px}
+.row-sub{font-size:11px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row-value{font-size:12px;color:#ece8f6}
+.status-online{display:flex;align-items:center;gap:7px;color:var(--green);font-size:12px;font-weight:700}
+.quick-row{cursor:pointer;transition:.15s}
+.quick-row:hover .row-title{color:var(--purple)}
+.row-arrow{margin-left:auto;color:#aaa2b8}
+.health{
+  display:inline-flex;align-items:center;gap:7px;border:1px solid #245b37;color:var(--green);
+  background:rgba(52,180,93,.07);padding:6px 10px;border-radius:999px;font-size:11px;font-weight:700
+}
+
+/* non-dashboard views */
+.section-card{
+  background:rgba(16,13,27,.96);border:1px solid var(--border2);border-radius:14px;padding:22px;
+  margin-top:18px
+}
+.section-card h2{margin:0 0 8px;font-size:17px}
+.section-card p{color:var(--muted);font-size:13px;line-height:1.7}
+.action{
+  border:1px solid #7540c4;background:rgba(169,112,255,.07);color:var(--purple);
+  border-radius:8px;padding:10px 14px;font-weight:700;font-size:12px
+}
+.action:hover{background:rgba(169,112,255,.13)}
+.input{
+  width:100%;height:42px;border-radius:8px;border:1px solid var(--border2);
+  background:#0a0812;color:#eee9f8;padding:0 13px;outline:none
+}
+.input:focus{border-color:#7d42cd;box-shadow:0 0 0 3px rgba(125,66,205,.12)}
+.input-row{display:flex;gap:10px}
+.code{
+  border:1px solid var(--border);background:#090710;border-radius:9px;padding:14px;
+  color:#a9a2b7;font:12px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;overflow:auto
+}
+.notice{padding:11px 13px;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:11px;margin-top:12px}
+.notice.ok{border-color:#245b37;color:#7be89d}
+.notice.err{border-color:#63303b;color:#ff92a3}
+
+/* game overlay */
+#instance-overlay{
+  position:fixed;inset:0;z-index:100;
+  display:none;flex-direction:column;background:#07060b
+}
+.instance-head{
+  height:54px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 16px;background:#110d1c;border-bottom:1px solid var(--border)
+}
+.instance-title{font-weight:800;color:var(--purple);font-size:13px}
+#app-frame{flex:1;width:100%;border:0}
+
+/* footer */
+.footer{text-align:center;padding:24px 0 6px;color:#5c5668;font-size:11px}
+
+
+/* SPITz-X Library */
+.library-header{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+.library-count{padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:rgba(169,112,255,.05);color:var(--muted);font-size:11px}
+.library-count span{color:var(--purple);font-weight:800}
+.library-tools{display:flex;align-items:center;gap:14px;margin:2px 0 18px}
+.library-search{position:relative;display:flex;align-items:center;flex:1;max-width:680px}
+.library-search svg{position:absolute;left:13px;width:18px;height:18px;color:#746b83;pointer-events:none}
+.library-search input{width:100%;height:40px;padding:0 40px;border:1px solid var(--border2);border-radius:10px;background:rgba(12,9,20,.92);color:#eee9f7;outline:none;font-size:12px}
+.library-search input::placeholder{color:#686173}
+.library-search input:focus{border-color:#6f42a9;box-shadow:0 0 0 3px rgba(169,112,255,.08)}
+.search-clear{position:absolute;right:8px;width:26px;height:26px;border:0;border-radius:7px;background:rgba(255,255,255,.05);color:#a69dae;font-size:17px;line-height:1}
+.search-clear:hover{background:rgba(169,112,255,.1);color:#fff}
+.library-results{padding:8px 12px;border:1px solid var(--border);border-radius:999px;color:var(--muted);font-size:11px}
+.library-results span{color:var(--purple);font-weight:800}
+.library-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.game-card{min-width:0;overflow:hidden;border:1px solid var(--border2);border-radius:14px;background:linear-gradient(180deg,rgba(20,16,33,.98),rgba(13,10,23,.99));box-shadow:0 12px 30px rgba(0,0,0,.16);transition:.18s ease}
+.game-card.playable:hover{transform:translateY(-3px);border-color:#654e87;box-shadow:0 17px 38px rgba(0,0,0,.24),0 0 24px rgba(133,68,225,.08)}
+.game-art{aspect-ratio:1;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--border)}
+.eagler-art{background:radial-gradient(circle at 50% 30%,rgba(169,112,255,.18),transparent 28%),linear-gradient(145deg,#171025,#0c0915 70%,#180e28)}
+.game-2048{background:radial-gradient(circle at 50% 25%,rgba(169,112,255,.24),transparent 28%),linear-gradient(145deg,#1d1530,#0e0a18 65%,#170c26)}
+.game-icon{width:62%;aspect-ratio:1;display:grid;place-items:center;border-radius:16px;position:relative;transition:.18s;filter:drop-shadow(0 16px 28px rgba(80,35,155,.24))}
+.game-icon svg{width:100%;height:100%}
+.game-icon.alt{transform:rotate(3deg)}
+.game-card.playable:hover .game-icon{transform:translateY(-3px) scale(1.025)}
+.game-card.playable:hover .game-icon.alt{transform:translateY(-3px) scale(1.025) rotate(3deg)}
+.puzzle-icon{width:58%}
+.version-ribbon{position:absolute;right:12px;bottom:12px;padding:5px 8px;border:1px solid rgba(255,255,255,.12);border-radius:6px;background:rgba(7,5,11,.78);color:#eee8f6;font:800 10px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.05em;backdrop-filter:blur(4px)}
+.game-card-body{padding:17px}.game-card-top{display:flex;align-items:center;gap:9px}.game-card-top h3{margin:0;font-size:15px}
+.game-card-body p{margin:8px 0 16px;min-height:42px;color:var(--muted);font-size:11px;line-height:1.55}
+.game-badge{margin-left:auto;padding:4px 7px;border-radius:999px;border:1px solid #29673d;color:var(--green);background:rgba(72,226,123,.06);font-size:9px;font-weight:800;letter-spacing:.08em}
+@media(max-width:1250px){.library-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:950px){.library-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.library-grid{grid-template-columns:1fr}.library-tools{align-items:stretch;flex-direction:column}.library-search{max-width:none}.library-header{align-items:flex-start;flex-direction:column}}
+
+/* responsive */
+@media(max-width:1100px){
+  .card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:820px){
+  :root{--sidebar:215px}
+  .main{padding:22px}
+  .lower-grid{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  :root{--sidebar:74px}
+  .brand{height:86px;padding:20px 0}
+  .brand-row{justify-content:center}.brand-name,.brand-version,.nav-label,.nav-item span,.sidebar-footer{display:none}
+  .brand-mark,.brand-mark svg{width:34px;height:34px}
+  .nav{padding:12px 8px}
+  .nav-item{justify-content:center;padding:0;min-height:48px}
+  .nav-item svg{width:21px;height:21px}
+  .main{padding:18px 14px}
+  .topbar{justify-content:stretch}.identity-chip{display:none}.status-chip{margin-left:auto}
+  .card-grid{grid-template-columns:1fr}
+}
+
+.media-info{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}.media-info>div{background:#0b0914;border:1px solid #231e38;border-radius:6px;padding:12px}.media-info span{display:block;color:#77718b;font-size:11px;margin-bottom:5px}.media-info strong{display:block;color:#e6e1f0;word-break:break-word}.video-shell{width:100%;min-height:420px;background:#05030a;border:1px solid #231e38;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden}.video-shell video{width:100%;max-height:560px;background:#000}.video-placeholder{text-align:center;color:#77718b;padding:50px}.play-mark{font-size:45px;color:#a371f7;margin-bottom:12px}.media-actions{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:12px}.playback-box{margin-top:14px;background:#0b0914;border:1px solid #5c3d91;border-radius:8px;padding:14px}.playback-label{font-size:11px;color:#a371f7;letter-spacing:1px;margin-bottom:8px}.playback-row{display:flex;gap:10px}.playback-row .input{margin:0;flex:1}.small{font-size:11px;color:#77718b;margin-top:8px;line-height:1.5}@media(max-width:900px){.media-info{grid-template-columns:repeat(2,1fr)}.media-actions{grid-template-columns:1fr 1fr}}@media(max-width:600px){.media-info{grid-template-columns:1fr}.media-actions{grid-template-columns:1fr}.video-shell{min-height:300px}.playback-row{flex-direction:column}}
+</style>
+</head>
+
+<body>
+<div class="stars" id="stars"></div>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-row">
+        <div class="brand-mark">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
+            <path d="M8 7 24 23 40 7M40 41 24 25 8 41"/>
+            <path d="M14 7 24 17M34 41 24 31"/>
+          </svg>
+        </div>
+        <div class="brand-name">SPITz-X</div>
+      </div>
+      <div class="brand-version">WORKSPACE v4.0</div>
+    </div>
+
+    <nav class="nav">
+      <div class="nav-label">Workspace</div>
+
+      <div class="nav-item active" data-tab="dashboard" onclick="switchTab('dashboard',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg>
+        <span>Dashboard</span>
+      </div>
+
+      <div class="nav-item" data-tab="library" onclick="switchTab('library',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 0 1 2-2h3v16H6a2 2 0 0 1-2-2zM9 3h4v16H9zM13 5h4a2 2 0 0 1 2 2v12h-6z"/></svg>
+        <span>Library</span>
+      </div>
+
+      <div class="nav-item" data-tab="media" onclick="switchTab('media',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m8 2 4 3 4-3"/></svg>
+        <span>Media Processor</span>
+      </div>
+
+      <div class="nav-item" data-tab="docs" onclick="switchTab('docs',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 3h14v18H7a2 2 0 0 1-2-2z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg>
+        <span>Documentation</span>
+      </div>
+
+      <div class="nav-item" data-tab="settings" onclick="switchTab('settings',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.7 1.7-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.1h-2.4v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1-1.7-1.7.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H4v-2.4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1L7 5.1l.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.6v-.1h2.4v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1 1.7 1.7-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.1v2.4h-.1a1.7 1.7 0 0 0-1.6 1Z"/></svg>
+        <span>Settings</span>
+      </div>
+
+      <div class="tools-divider"></div>
+      <div class="nav-label">Tools</div>
+
+      <div class="nav-item" onclick="launchGame()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="12" rx="4"/><path d="M8 11v4M6 13h4M16 12h.01M18 14h.01"/></svg>
+        <span>Launch Game</span>
+      </div>
+
+      <div class="nav-item" onclick="switchTab('dashboard',document.querySelector('[data-tab=dashboard]'));checkApi()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg>
+        <span>API Status</span>
+      </div>
+    </nav>
+
+    <div class="sidebar-spacer"></div>
+    <div class="sidebar-footer">
+      <div class="sidebar-tech">SPITz-X Tech Group</div>
+      <div class="online-row"><span class="online-dot"></span><span>System Online</span></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="status-chip">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.8"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg>
+        <span class="status-label" id="top-api-status">API: CHECKING</span>
+        <span class="divider"></span>
+        <span class="clock" id="clock">--:-- --</span>
+      </div>
+      <div class="identity-chip">
+        <div class="identity-mark">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M8 7 24 23 40 7M40 41 24 25 8 41"/></svg>
+        </div>
+        <div><div class="identity-name">SPITz-X</div><div class="identity-sub">Tech Group</div></div>
+      </div>
+    </div>
+
+    <section id="dashboard" class="view active">
+      <h1 class="page-title">Dashboard</h1>
+      <p class="page-sub">Welcome back to your workspace.</p>
+
+      <div class="card-grid">
+        <article class="feature-card">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 0 1 2-2h3v16H6a2 2 0 0 1-2-2zM9 3h4v16H9zM13 5h4a2 2 0 0 1 2 2v12h-6z"/></svg></div>
+          <h3>Library</h3><p>Access your games and tools.</p>
+          <button class="card-btn" onclick="go('library')">Open Library <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m8 2 4 3 4-3"/><path d="m10 10 5 3-5 3z"/></svg></div>
+          <h3>Media Processor</h3><p>Open the authorized media workspace.</p>
+          <button class="card-btn" onclick="go('media')">Open Processor <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 3h14v18H7a2 2 0 0 1-2-2z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></div>
+          <h3>Documentation</h3><p>View guides and project notes.</p>
+          <button class="card-btn" onclick="go('docs')">Open Docs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.7 1.7-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.1h-2.4v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1-1.7-1.7.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H4v-2.4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1L7 5.1l.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.6v-.1h2.4v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1 1.7 1.7-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.1v2.4h-.1a1.7 1.7 0 0 0-1.6 1Z"/></svg></div>
+          <h3>Settings</h3><p>Configure your workspace.</p>
+          <button class="card-btn" onclick="go('settings')">Open Settings <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </article>
+      </div>
+
+      <div class="lower-grid">
+        <section class="panel">
+          <div class="panel-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg>System Status</div>
+          <div class="panel-body">
+            <div class="status-row"><div class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 5h14v14H5z"/><path d="M9 9h6v6H9z"/></svg></div><div class="row-main"><div class="row-title">Media API</div></div><div class="status-online"><span class="online-dot"></span><span id="api-status">CHECKING</span></div></div>
+            <div class="status-row"><div class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div><div class="row-main"><div class="row-title">API Endpoint</div></div><div class="row-value" id="endpoint-display">Configured locally</div></div>
+            <div class="status-row"><div class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div class="row-main"><div class="row-title">Last Checked</div></div><div class="row-value" id="last-checked">Not checked yet</div></div>
+            <div class="status-row"><div class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 21 8v8l-9 5-9-5V8z"/><path d="m8 12 2.5 2.5L16 9"/></svg></div><div class="row-main"><div class="row-title">Status</div></div><div class="health"><span class="online-dot"></span><span id="health-text">Checking</span></div></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m13 2-2 8h6l-8 12 2-8H5z"/></svg>Quick Launch</div>
+          <div class="panel-body">
+            <div class="quick-row" onclick="launchGame()"><div class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="12" rx="4"/><path d="M8 11v4M6 13h4M16 12h.01M18 14h.01"/></svg></div><div class="row-main"><div class="row-title">Launch Game Instance</div><div class="row-sub">Start your game environment</div></div><div class="row-arrow">›</div></div>
+            <div class="quick-row" onclick="go('media')"><div class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m10 8 6 4-6 4z"/></svg></div><div class="row-main"><div class="row-title">Open Media Processor</div><div class="row-sub">Open the SPITz-X playback workspace</div></div><div class="row-arrow">↗</div></div>
+            <div class="quick-row" onclick="window.open('https://github.com/','_blank','noopener,noreferrer')"><div class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 19c-4 1-4-2-5-2m10 5v-3.9c0-1 .1-1.4-.5-2.1 1.7-.2 3.5-.8 3.5-4A3.1 3.1 0 0 0 16 9a2.8 2.8 0 0 0 0-3s-.9-.3-3 1.1a10.4 10.4 0 0 0-6 0C4.9 5.7 4 6 4 6a2.8 2.8 0 0 0 0 3A3.1 3.1 0 0 0 3 12c0 3.2 1.8 3.8 3.5 4-.6.6-.6 1.2-.5 2.1V21"/></svg></div><div class="row-main"><div class="row-title">GitHub Pages</div><div class="row-sub">Project and source control</div></div><div class="row-arrow">↗</div></div>
+            <div class="quick-row" onclick="go('docs')"><div class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16M12 4l8 8-8 8"/></svg></div><div class="row-main"><div class="row-title">SPITz-X API Docs</div><div class="row-sub">View API integration notes</div></div><div class="row-arrow">↗</div></div>
+          </div>
+        </section>
+      </div>
+
+      <div class="footer">© 2026 SPITz-X Tech Group. Built for the workspace.</div>
+    </section>
+
+        <section id="library" class="view">
+      <div class="library-header">
+        <div>
+          <h1 class="page-title">Library</h1>
+          <p class="page-sub">Launch your installed SPITz-X games and offline builds.</p>
+        </div>
+        <div class="library-count"><span id="library-count">3</span> installed</div>
+      </div>
+
+      <div class="library-tools">
+        <div class="library-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
+            <circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/>
+          </svg>
+          <input id="library-search" type="search" autocomplete="off" placeholder="Search games..." oninput="searchLibrary(this.value)">
+          <button id="library-clear" class="search-clear" type="button" onclick="clearLibrarySearch()" aria-label="Clear search" hidden>×</button>
+        </div>
+        <div class="library-results"><span id="library-results">3</span> games</div>
+      </div>
+
+      <div class="library-grid" id="library-grid">
+        <article class="game-card library-item playable" data-search="eaglercraft eaglercraftx minecraft 1.8 1.8.8 offline browser singleplayer multiplayer">
+          <div class="game-art eagler-art">
+            <div class="game-icon minecraft-icon">
+              <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                <rect x="7" y="9" width="50" height="46" rx="7" fill="#7A55D8"/>
+                <path d="M16 19h32v10H16z" fill="#B28AFF"/>
+                <path d="M16 35h13v13H16zM35 35h13v13H35z" fill="#4E347F"/>
+                <path d="M20 14h8v6h-8zM36 14h8v6h-8z" fill="#E6DAFF"/>
+              </svg>
+            </div>
+            <div class="version-ribbon">1.8</div>
+          </div>
+          <div class="game-card-body">
+            <div class="game-card-top"><h3>EaglercraftX 1.8</h3><span class="game-badge">INSTALLED</span></div>
+            <p>Actual offline EaglercraftX 1.8 browser client.</p>
+            <button class="card-btn" onclick="launchEagler('Games/Eaglercraft/1.8/index.html','EaglercraftX 1.8')">Play Game <span class="arrow">→</span></button>
+          </div>
+        </article>
+
+        <article class="game-card library-item playable" data-search="eaglercraft eaglercraftx minecraft 1.12 1.12.2 offline browser wasm wasm-gc">
+          <div class="game-art eagler-art">
+            <div class="game-icon minecraft-icon alt">
+              <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                <rect x="7" y="9" width="50" height="46" rx="7" fill="#8A5AE8"/>
+                <path d="M16 19h32v10H16z" fill="#C09BFF"/>
+                <path d="M16 35h13v13H16zM35 35h13v13H35z" fill="#5C3D96"/>
+                <path d="M20 14h8v6h-8zM36 14h8v6h-8z" fill="#F0E8FF"/>
+              </svg>
+            </div>
+            <div class="version-ribbon">1.12.2</div>
+          </div>
+          <div class="game-card-body">
+            <div class="game-card-top"><h3>Eaglercraft 1.12.2</h3><span class="game-badge">INSTALLED</span></div>
+            <p>Actual offline 1.12.2 WASM-GC browser client.</p>
+            <button class="card-btn" onclick="launchEagler('Games/Eaglercraft/1.12.2/index.html','Eaglercraft 1.12.2')">Play Game <span class="arrow">→</span></button>
+          </div>
+        </article>
+
+        <article class="game-card library-item playable" data-search="2048 puzzle numbers merge game">
+          <div class="game-art game-2048">
+            <div class="game-icon puzzle-icon">
+              <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                <rect x="6" y="6" width="52" height="52" rx="12" fill="#2A1B40"/>
+                <rect x="13" y="13" width="16" height="16" rx="4" fill="#7042A4"/>
+                <rect x="35" y="13" width="16" height="16" rx="4" fill="#A970FF"/>
+                <rect x="13" y="35" width="16" height="16" rx="4" fill="#A970FF"/>
+                <rect x="35" y="35" width="16" height="16" rx="4" fill="#7042A4"/>
+                <path d="M21 20h1M42 20h2M20 42h2M41 42h2" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="version-ribbon">PUZZLE</div>
+          </div>
+          <div class="game-card-body">
+            <div class="game-card-top"><h3>2048</h3><span class="game-badge">INSTALLED</span></div>
+            <p>Classic number-merging puzzle with keyboard, touch, and swipe controls.</p>
+            <button class="card-btn" onclick="launchGame()">Play Game <span class="arrow">→</span></button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="media" class="view">
+      <h1 class="page-title">Media Processor</h1>
+      <p class="page-sub">Identify a video, check the authorized SPITz-X library, and play its hosted MP4 with a native player.</p>
+      <div class="section-card">
+        <h2>1. Video Watch Link</h2>
+        <div class="input-row"><input id="media-url" class="input" placeholder="https://www.youtube.com/watch?v=VIDEO_ID"><button class="action" onclick="analyzeMedia()">Analyze</button></div>
+        <div id="media-status" class="notice">Waiting for a video link...</div>
+        <div id="media-info" class="media-info" style="display:none">
+          <div><span>Title</span><strong id="media-title">—</strong></div><div><span>Channel</span><strong id="media-channel">—</strong></div><div><span>Video ID</span><strong id="media-id">—</strong></div><div><span>Library</span><strong id="media-library">Checking...</strong></div>
+        </div>
+        <div class="video-shell"><div id="media-placeholder" class="video-placeholder"><div class="play-mark">▶</div><div>Analyze a link to check for an authorized SPITz-X copy.</div></div><video id="direct-video-player" controls playsinline preload="metadata" style="display:none"></video></div>
+        <div class="media-actions"><button id="watch-library" class="action" disabled>▶ Watch in SPITz-X</button><button id="download-mp4" class="action secondary" disabled>↓ Download MP4</button><button id="copy-playback" class="action secondary" disabled>Copy Playback Link</button><button id="open-playback" class="action secondary" disabled>Open Playback Link ↗</button><button class="action secondary" onclick="clearMedia()">Clear</button></div>
+        <div id="playback-box" class="playback-box" style="display:none"><div class="playback-label">VIDEO PLAYBACK LINK</div><div class="playback-row"><input id="playback-url" class="input" readonly><button class="action" onclick="copyPlaybackLink()">Copy</button></div><div class="small">Direct SPITz-X hosted MP4 URL for this authorized library copy.</div></div>
+      </div>
+      <div class="section-card"><h2>2. Add an Authorized Copy</h2><p>Upload a video your Tech Group owns or has permission to distribute. SPITz-X converts it to MP4 and assigns a playback URL.</p><input id="video-file" class="input" type="file" accept="video/*"><div id="file-name" class="notice">No file selected.</div><button id="process-file" class="action" onclick="processAuthorizedFile()">Process Authorized Video</button><div id="process-status" class="notice">Authorized source upload is optional.</div></div>
+      <div class="section-card"><h2>Tech Group Admin Upload</h2><p>Admin-only upload for authorized media. The token is sent only to the configured API and is not stored by SPITz-X.</p><input id="admin-token" class="input" type="password" placeholder="SPITz-X admin token"><input id="admin-title" class="input" placeholder="Video title"><input id="admin-channel" class="input" placeholder="Channel / creator (optional)"><input id="admin-file" class="input" type="file" accept="video/*"><button class="action" onclick="adminUpload()">Upload Authorized Media</button><div id="admin-status" class="notice">Admin upload is optional.</div></div>
+      <div class="section-card"><h2>How playback works</h2><div class="code">AUTHORIZED SOURCE → SPITz-X API → FFmpeg → MP4 → /media/:videoId → native HTML5 player
+
+Playback URL = API/media/VIDEO_ID
+Download URL = API/media/VIDEO_ID/download</div><div class="notice">SPITz-X does not extract hidden YouTube stream URLs or bypass YouTube access controls. The playback URL is for media SPITz-X is authorized to host.</div></div>
+    </section>
+
+    <section id="docs" class="view">
+      <h1 class="page-title">Documentation</h1>
+      <p class="page-sub">SPITz-X project notes and integration details.</p>
+      <div class="section-card">
+        <h2>Frontend</h2>
+        <p>The SPITz-X workspace is a static HTML/CSS/JS interface that can be hosted on GitHub Pages or another static host.</p>
+        <div class="code">spitz-app.html<br>index.html<br>js/cloak.js<br>js/snow.js<br>Games/...</div>
+      </div>
+      <div class="section-card">
+        <h2>Media API</h2>
+        <p>The workspace can check the configured API health endpoint and stores the endpoint locally in this browser.</p>
+        <div class="code">GET /health<br>GET /library/:videoId<br>GET /media/:videoId<br>GET /media/:videoId/download</div>
+      </div>
+    </section>
+
+    <section id="settings" class="view">
+      <h1 class="page-title">Settings</h1>
+      <p class="page-sub">Configure this browser's SPITz-X workspace.</p>
+      <div class="section-card">
+        <h2>API Endpoint</h2>
+        <div class="input-row"><input id="api-endpoint" class="input" placeholder="https://your-api.example.com"><button class="action" onclick="saveApi()">Save</button></div>
+        <div id="settings-status" class="notice">Saved locally in this browser.</div>
+      </div>
+      <div class="section-card">
+        <h2>Page Title</h2>
+        <div class="input-row"><input id="tab-title" class="input" placeholder="SPITz-X Workspace"><button class="action" onclick="changeTitle()">Apply</button></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="instance-overlay">
+  <div class="instance-head">
+    <div class="instance-title">SPITz-X GAME INSTANCE</div>
+    <button class="action" onclick="closeGame()">Terminate Instance</button>
+  </div>
+  <iframe id="app-frame" src=""></iframe>
+</div>
+
+<script>
+const DEFAULT_API = 'https://spitz-x-api.onrender.com';
+let API = localStorage.getItem('spitzx-api') || DEFAULT_API;
+
+function switchTab(id, el){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.nav-item[data-tab]').forEach(n=>n.classList.remove('active'));
+  const view=document.getElementById(id);
+  if(view)view.classList.add('active');
+  if(el && el.dataset.tab)el.classList.add('active');
+  const active=document.querySelector('.nav-item[data-tab="'+id+'"]');
+  if(active)active.classList.add('active');
+  if(id==='dashboard')checkApi();
+}
+function go(id){switchTab(id,document.querySelector('.nav-item[data-tab="'+id+'"]'))}
+function launchEagler(url,title){
+  const overlay=document.getElementById('instance-overlay');
+  overlay.style.display='flex';
+  document.getElementById('app-frame').src=url;
+  document.querySelector('.instance-title').textContent='SPITz-X • '+title.toUpperCase();
+}
+function searchLibrary(query){
+  const q=query.trim().toLowerCase();
+  let shown=0;
+  document.querySelectorAll('.library-item').forEach(card=>{
+    const haystack=(card.dataset.search||card.textContent).toLowerCase();
+    const match=!q||haystack.includes(q);
+    card.style.display=match?'':'none';
+    if(match)shown++;
+  });
+  const results=document.getElementById('library-results');
+  if(results)results.textContent=shown;
+  const clear=document.getElementById('library-clear');
+  if(clear)clear.hidden=!q;
+}
+function clearLibrarySearch(){
+  const input=document.getElementById('library-search');
+  input.value='';
+  searchLibrary('');
+  input.focus();
+}
+function launchGame(){
+  const overlay=document.getElementById('instance-overlay');
+  overlay.style.display='flex';
+  document.getElementById('app-frame').src='Games/SpaceShooter Hoe/2048-master/2048-master/index.html';
+}
+function closeGame(){
+  document.getElementById('instance-overlay').style.display='none';
+  document.getElementById('app-frame').src='';
+}
+function ytId(raw){try{const u=new URL(raw);const h=u.hostname.replace(/^www\./,'').toLowerCase();if((h==='youtube.com'||h==='m.youtube.com')&&u.pathname==='/watch')return u.searchParams.get('v');if(h==='youtu.be')return u.pathname.slice(1).split('/')[0];if(h==='youtube.com'&&u.pathname.startsWith('/shorts/'))return u.pathname.split('/')[2];if(h==='youtube.com'&&u.pathname.startsWith('/embed/'))return u.pathname.split('/')[2]}catch{}return null}
+let currentMediaUrl='', currentDownloadUrl='';
+function setMediaNotice(message,type=''){const e=document.getElementById('media-status');e.textContent=message;e.className='notice'+(type?' '+type:'')}
+function resetMedia(){const v=document.getElementById('direct-video-player');v.pause();v.removeAttribute('src');v.load();v.style.display='none';document.getElementById('media-placeholder').style.display='block';['watch-library','download-mp4','copy-playback','open-playback'].forEach(id=>document.getElementById(id).disabled=true);document.getElementById('playback-box').style.display='none';currentMediaUrl='';currentDownloadUrl=''}
+async function analyzeMedia(){const raw=document.getElementById('media-url').value.trim();const id=ytId(raw);if(!id){setMediaNotice('Enter a valid YouTube watch link.','err');return}resetMedia();setMediaNotice('Checking video information...');try{const r=await fetch(API+'/analyze?url='+encodeURIComponent(raw));const d=await r.json();if(!r.ok)throw new Error(d.error||'API error');document.getElementById('media-title').textContent=d.title||'YouTube video';document.getElementById('media-channel').textContent=d.author_name||'Unknown';document.getElementById('media-id').textContent=d.videoId||id;document.getElementById('media-info').style.display='grid';await checkMediaLibrary(id)}catch(e){setMediaNotice('Could not load video information: '+e.message,'err')}}
+async function checkMediaLibrary(id){try{const r=await fetch(API+'/library/'+encodeURIComponent(id),{cache:'no-store'});if(!r.ok){document.getElementById('media-library').textContent='No authorized copy';setMediaNotice('Video identified, but no authorized SPITz-X copy is available.');return}const d=await r.json();if(!d.available||!d.playbackUrl)throw new Error('No playable copy returned');currentMediaUrl=d.playbackUrl.startsWith('http')?d.playbackUrl:API+d.playbackUrl;currentDownloadUrl=d.downloadUrl?.startsWith('http')?d.downloadUrl:API+d.downloadUrl;document.getElementById('media-library').textContent='Available';document.getElementById('playback-url').value=currentMediaUrl;document.getElementById('playback-box').style.display='block';document.getElementById('watch-library').disabled=false;document.getElementById('download-mp4').disabled=false;document.getElementById('copy-playback').disabled=false;document.getElementById('open-playback').disabled=false;document.getElementById('watch-library').onclick=()=>playLibraryVideo(currentMediaUrl);document.getElementById('download-mp4').onclick=()=>window.open(currentDownloadUrl,'_blank','noopener,noreferrer');document.getElementById('open-playback').onclick=()=>window.open(currentMediaUrl,'_blank','noopener,noreferrer');setMediaNotice('Authorized copy found. Playback link is ready.','ok')}catch(e){document.getElementById('media-library').textContent='Unavailable';setMediaNotice('Could not check the SPITz-X media library: '+e.message,'err')}}
+function playLibraryVideo(url){const v=document.getElementById('direct-video-player');v.src=url;v.style.display='block';document.getElementById('media-placeholder').style.display='none';v.play().catch(()=>{});setMediaNotice('Native SPITz-X video player loaded.','ok')}
+async function copyPlaybackLink(){if(!currentMediaUrl)return;try{await navigator.clipboard.writeText(currentMediaUrl)}catch{const i=document.getElementById('playback-url');i.focus();i.select();document.execCommand('copy')}setMediaNotice('Playback link copied.','ok')}
+function clearMedia(){resetMedia();document.getElementById('media-url').value='';document.getElementById('media-info').style.display='none';setMediaNotice('Player cleared.')}
+async function processAuthorizedFile(){const file=document.getElementById('video-file').files[0];const raw=document.getElementById('media-url').value.trim();const id=ytId(raw);if(!file||!id){document.getElementById('process-status').textContent=!file?'Choose an authorized video file first.':'Paste and analyze the matching YouTube watch link first.';document.getElementById('process-status').className='notice err';return}const btn=document.getElementById('process-file');btn.disabled=true;btn.textContent='Processing...';document.getElementById('process-status').textContent='Uploading and converting authorized source...';try{const fd=new FormData();fd.append('video',file);fd.append('videoId',id);fd.append('videoUrl',raw);const r=await fetch(API+'/process',{method:'POST',body:fd});const d=await r.json();if(!r.ok)throw new Error(d.error||'Processing failed');document.getElementById('process-status').textContent='Processed. Playback URL ready.';document.getElementById('process-status').className='notice ok';await analyzeMedia();if(d.playbackUrl)playLibraryVideo(d.playbackUrl.startsWith('http')?d.playbackUrl:API+d.playbackUrl)}catch(e){document.getElementById('process-status').textContent=e.message;document.getElementById('process-status').className='notice err'}finally{btn.disabled=false;btn.textContent='Process Authorized Video'}}
+async function adminUpload(){const token=document.getElementById('admin-token').value.trim(),file=document.getElementById('admin-file').files[0],raw=document.getElementById('media-url').value.trim(),id=ytId(raw);if(!token||!file||!id){document.getElementById('admin-status').textContent='Enter the admin token, choose a video, and paste the matching watch link.';document.getElementById('admin-status').className='notice err';return}document.getElementById('admin-status').textContent='Uploading and processing...';try{const fd=new FormData();fd.append('video',file);fd.append('videoId',id);fd.append('videoUrl',raw);fd.append('title',document.getElementById('admin-title').value.trim()||'SPITz-X Video');fd.append('channel',document.getElementById('admin-channel').value.trim());const r=await fetch(API+'/admin/upload',{method:'POST',headers:{'x-spitz-admin-token':token},body:fd});const d=await r.json();if(!r.ok)throw new Error(d.error||'Admin upload failed');document.getElementById('admin-status').textContent='Added '+d.videoId+'. Playback URL is ready.';document.getElementById('admin-status').className='notice ok';document.getElementById('admin-token').value='';document.getElementById('admin-file').value='';await analyzeMedia()}catch(e){document.getElementById('admin-status').textContent=e.message;document.getElementById('admin-status').className='notice err'}}
+
+function saveApi(){
+  API=(document.getElementById('api-endpoint').value.trim().replace(/\/$/,'')||DEFAULT_API);
+  localStorage.setItem('spitzx-api',API);
+  document.getElementById('endpoint-display').textContent=API;
+  const s=document.getElementById('settings-status'); s.textContent='API endpoint saved locally.'; s.className='notice ok';
+  checkApi();
+}
+function changeTitle(){
+  const v=document.getElementById('tab-title').value.trim();
+  if(v)document.title=v;
+}
+async function checkApi(){
+  const status=document.getElementById('api-status');
+  const top=document.getElementById('top-api-status');
+  const health=document.getElementById('health-text');
+  const checked=document.getElementById('last-checked');
+  document.getElementById('endpoint-display').textContent=API;
+  try{
+    const r=await fetch(API+'/health',{cache:'no-store'});
+    if(r.ok){
+      status.textContent='ONLINE'; top.textContent='API: ONLINE'; health.textContent='Operational';
+      checked.textContent=new Date().toLocaleTimeString();
+    }else throw new Error();
+  }catch{
+    status.textContent='OFFLINE'; top.textContent='API: OFFLINE'; health.textContent='Unavailable';
+    checked.textContent=new Date().toLocaleTimeString();
+  }
+}
+function updateClock(){
+  document.getElementById('clock').textContent=new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
+}
+function makeStars(){
+  const root=document.getElementById('stars');
+  for(let i=0;i<95;i++){
+    const s=document.createElement('span'); s.className='star';
+    s.style.left=(Math.random()*100)+'%'; s.style.top=(Math.random()*100)+'%';
+    const size=Math.random()<.85?2:3; s.style.width=size+'px'; s.style.height=size+'px';
+    s.style.opacity=(.15+Math.random()*.55).toFixed(2);
+    root.appendChild(s);
+  }
+}
+document.getElementById('video-file')?.addEventListener('change',e=>{document.getElementById('file-name').textContent=e.target.files[0]?.name||'No file selected'});document.getElementById('media-url')?.addEventListener('keydown',e=>{if(e.key==='Enter')analyzeMedia()});document.getElementById('api-endpoint').value=API;
+document.getElementById('tab-title').value=document.title;
+updateClock(); setInterval(updateClock,1000);
+makeStars(); checkApi();
+</script>
+</body>
+</html>
