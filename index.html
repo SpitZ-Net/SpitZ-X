@@ -3,70 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Portal | Schedule</title>
+    <title>Infinite Campus | Academic Portal</title>
     <link rel="stylesheet" href="css/portal.css">
 </head>
 <body>
     <header>
-        <div id="spitz-trigger" class="logo" title="Click to Launch Workspace">Infinite Campus — Student Portal</div>
+        <div id="spitz-trigger" class="logo" title="Secure Workspace Link">Infinite Campus — District 214</div>
         <div class="nav-links">
             <a href="#" class="active">Schedule</a>
             <a href="#">Grades</a>
             <a href="#">Attendance</a>
-            <a href="#">More</a>
+            <a href="#">Reports</a>
         </div>
     </header>
     <div class="container">
         <div class="portal-header">
-            <h2>Class Schedule & Performance</h2>
-            <span class="term-badge">Term 2 (2025-2026)</span>
+            <h2>Sophomore Year Term Schedule</h2>
+            <span class="term-badge">Semester 2 • 2025-2026</span>
         </div>
-        <p class="subtext">Current enrolled periods and live grade calculations.</p>
+        <p class="subtext">Daily student roster, room assignments, and live academic performance metrics.</p>
         
         <table>
             <thead>
                 <tr>
                     <th>Period</th>
                     <th>Time</th>
-                    <th>Course Name</th>
-                    <th>Teacher</th>
-                    <th>Room</th>
-                    <th>Grade / Score</th>
+                    <th>Course Title</th>
+                    <th>Instructor</th>
+                    <th>Location</th>
+                    <th>Current Grade</th>
                 </tr>
             </thead>
             <tbody id="schedule-body">
-                <!-- Populated via JS to randomize look & feel -->
+                <!-- Dynamically injected sophomore classes -->
             </tbody>
         </table>
     </div>
 
     <script>
-        const classes = [
-            { period: "1", time: "08:00 AM - 09:20 AM", name: "Advanced Placement Calculus", teacher: "Dr. Harrison", room: "Room 402" },
-            { period: "2", time: "09:30 AM - 10:50 AM", name: "Physics C: Mechanics", teacher: "Mr. Vance", room: "Lab 10B" },
-            { period: "3", time: "11:00 AM - 12:50 PM", name: "American Literature & Comp", teacher: "Ms. Albright", room: "Room 214" },
-            { period: "4", time: "01:30 PM - 02:55 PM", name: "Advanced Software Engineering", teacher: "Mr. Sterling", room: "Tech Lab A" }
+        const sophomoreClasses = [
+            { period: "1", time: "08:00 AM - 08:50 AM", name: "Geometry Honors", teacher: "Mr. Davis", room: "Room 304" },
+            { period: "2", time: "08:55 AM - 09:45 AM", name: "Biology", teacher: "Mrs. Gable", room: "Science Wing 112" },
+            { period: "3", time: "09:50 AM - 10:40 AM", name: "English 10", teacher: "Ms. Henderson", room: "Room 218" },
+            { period: "4", time: "10:45 AM - 11:35 AM", name: "World History", teacher: "Mr. Callahan", room: "Room 105" },
+            { period: "Lunch", time: "11:40 AM - 12:15 PM", name: "A-Lunch / Commons", teacher: "Cafeteria Staff", room: "Main Commons" },
+            { period: "5", time: "12:20 PM - 01:10 PM", name: "Spanish II", teacher: "Sra. Martinez", room: "Room 410" },
+            { period: "6", time: "01:15 PM - 02:05 PM", name: "Computer Science Applications", teacher: "Mr. Sterling", room: "Tech Lab B" },
+            { period: "7", time: "02:10 PM - 03:00 PM", name: "Physical Education / Health", href: "#", teacher: "Coach Miller", room: "Main Gymnasium" }
         ];
 
         const tbody = document.getElementById('schedule-body');
         
-        classes.forEach(cls => {
-            // Randomize grades between 83% and 99% for a realistic touch
-            const score = Math.floor(Math.random() * (99 - 83 + 1)) + 83;
-            let letter = 'A';
-            if (score < 90 && score >= 87) letter = 'B+';
-            else if (score < 87 && score >= 84) letter = 'B';
-            else if (score < 84) letter = 'B-';
-            else if (score >= 97) letter = 'A+';
+        sophomoreClasses.forEach(cls => {
+            const isLunch = cls.period === "Lunch";
+            let gradeHtml = '<span class="grade-na">—</span>';
+            
+            if (!isLunch) {
+                const score = Math.floor(Math.random() * (98 - 78 + 1)) + 78;
+                let letter = 'A';
+                if (score < 90 && score >= 87) letter = 'B+';
+                else if (score < 87 && score >= 84) letter = 'B';
+                else if (score < 84 && score >= 80) letter = 'B-';
+                else if (score < 80) letter = 'C+';
+                else if (score >= 97) letter = 'A+';
+                
+                gradeHtml = `<span class="grade-pill">${letter} (${score}%)</span>`;
+            } else {
+                gradeHtml = `<span class="grade-lunch">Open Period</span>`;
+            }
 
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td><strong>${cls.period}</strong></td>
                 <td>${cls.time}</td>
-                <td><span class="course-title">${cls.name}</span></td>
+                <td><span class="${isLunch ? 'lunch-title' : 'course-title'}">${cls.name}</span></td>
                 <td>${cls.teacher}</td>
                 <td>${cls.room}</td>
-                <td><span class="grade-pill">${letter} (${score}%)</span></td>
+                <td>${gradeHtml}</td>
             `;
             tbody.appendChild(row);
         });
